@@ -1,0 +1,35 @@
+{
+	"meta": {
+		"title": "(es_ES) SplatNet",
+		"description": "(es_ES) Idk I need to come up with a better name lol"
+	},
+	"titles": {
+		"regular": "Combate amistoso",
+		"ranked": "Combate competitivo",
+		"gatherings": "(es_ES) Gatherings"
+	},
+	"stages": {
+		"0": "Parque Viaducto",
+		"1": "Almacén Rodaballo",
+		"2": "Plataforma Gaviota",
+		"3": "Plazuela del Calamar",
+		"4": "Parque Lubina",
+		"5": "Campamento Arowana",
+		"6": "Puerto Jurel",
+		"7": "Jardín botánico",
+		"8": "Torres Merluza",
+		"9": "Mina costera",
+		"10": "Puente Salmón",
+		"11": "Complejo Medusa",
+		"12": "Museo del Pargo",
+		"13": "Estudios Esturión",
+		"14": "Cantera Tintorera",
+		"15": "Spa Cala Bacalao"
+	},
+	"modes": {
+		"cPnt": "Territorial",
+		"cVar": "Pintazonas",
+		"cVlf": "Torreón",
+		"cVgl": "Pez dorado"
+	}
+}

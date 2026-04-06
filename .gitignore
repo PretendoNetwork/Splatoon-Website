@@ -1,0 +1,11 @@
+.output
+.data
+.nuxt
+.nitro
+.cache
+dist
+node_modules
+.env
+.vscode
+*.byaml
+VSSetting.json

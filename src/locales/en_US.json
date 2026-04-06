@@ -1,0 +1,35 @@
+{
+	"meta": {
+		"title": "SplatNet",
+		"description": "Idk I need to come up with a better name lol"
+	},
+	"titles": {
+		"regular": "Regular Battle",
+		"ranked": "Ranked Battle",
+		"gatherings": "Gatherings"
+	},
+	"stages": {
+		"0": "Urchin Underpass",
+		"1": "Walleye Warehouse",
+		"2": "Saltspray Rig",
+		"3": "Arowana Mall",
+		"4": "Blackbelly Skatepark",
+		"5": "Camp Triggerfish",
+		"6": "Port Mackerel",
+		"7": "Kelp Dome",
+		"8": "Moray Towers",
+		"9": "Bluefin Depot",
+		"10": "Hammerhead Bridge",
+		"11": "Flounder Heights",
+		"12": "Museum d'Alfonsino",
+		"13": "Ancho-V Games",
+		"14": "Piranha Pit",
+		"15": "Mahi-Mahi Resort"
+	},
+	"modes": {
+		"cPnt": "Turf War",
+		"cVar": "Splat Zones",
+		"cVlf": "Tower Control",
+		"cVgl": "Rainmaker"
+	}
+}

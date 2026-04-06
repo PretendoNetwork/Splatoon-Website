@@ -1,0 +1,375 @@
+:root {
+	--max-window-width: 800px;
+	--arrow-bg-scale: 53px;
+	--c1: #2f3335;
+	--c2: #3c3f44;
+	--c3: #ffffff;
+}
+
+@font-face {
+	font-family: "Splatoon1";
+	src: url("~/assets/fonts/Splatoon1.otf") format("opentype");
+}
+
+@font-face {
+	font-family: "LED Dot-Matrix";
+	src: url("~/assets/fonts/LED Dot-Matrix.ttf") format("opentype");
+}
+
+html {
+	background-color: #484d52;
+}
+
+body {
+	font-family: "Splatoon1";
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 100vh;
+	width: 100vw;
+	overflow: hidden;
+	margin: 0;
+	padding-top: env(safe-area-inset-top);
+	padding-right: env(safe-area-inset-right);
+	padding-bottom: env(safe-area-inset-bottom);
+	padding-left: env(safe-area-inset-left);
+}
+
+/* Main Body Wrapper */
+.mainFrame {
+	width: 100vw;
+	height: 100vh;
+	max-width: var(--max-window-width);
+	overflow-x: scroll;
+	overflow-y: hidden;
+}
+
+.content {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, min(var(--max-window-width), 100vw));
+	grid-auto-flow: column;
+	grid-auto-columns: min(var(--max-window-width), 100vw);
+	scroll-snap-type: x mandatory;
+	scroll-snap-align: center;
+	display: grid;
+	overflow-x: scroll;
+	height: calc(100vh - 90px);
+	width: 100%;
+	overflow-y: hidden;
+}
+
+/* Stage Rotation Element Rotations */
+div.polaroid:nth-of-type(1n) {
+	-webkit-transform: rotate(3deg);
+	-moz-transform: rotate(3deg);
+	-ms-transform: rotate(3deg);
+	-o-transform: rotate(3deg);
+	transform: rotate(3deg);
+}
+
+div.polaroid:nth-of-type(2n) {
+	-webkit-transform: rotate(-3deg);
+	-moz-transform: rotate(-3deg);
+	-ms-transform: rotate(-3deg);
+	-o-transform: rotate(-3deg);
+	transform: rotate(-3deg);
+}
+
+div.polaroid:nth-of-type(3n) {
+	-o-transform: rotate(-5deg);
+	-webkit-transform: rotate(-5deg);
+	-moz-transform: rotate(-5deg);
+	-ms-transform: rotate(-5deg);
+	transform: rotate(-5deg);
+}
+
+div.polaroid:nth-of-type(4n) {
+	-o-transform: rotate(5deg);
+	-webkit-transform: rotate(5deg);
+	-moz-transform: rotate(5deg);
+	-ms-transform: rotate(5deg);
+	transform: rotate(5deg);
+}
+
+/* Text Icons */
+*::before {
+	background-repeat: no-repeat;
+	width: 2ch;
+	height: 2ch;
+	margin-right: 0.5ch;
+	display: inline-block;
+	vertical-align: middle;
+	background-size: cover;
+}
+
+.cPnt::before {
+	content: url(~/assets/icons/turf.svg);
+	margin-right: 0.5ch;
+	display: inline-block;
+	vertical-align: middle;
+}
+
+.map::before {
+	content: " ";
+	background-image: url(assets/icons/map.png);
+	background-position-x: -3px;
+}
+
+.friends::before {
+	content: " ";
+	background-image: url(assets/icons/friends.webp);
+	height: 23px;
+	background-size: contain;
+}
+
+.cVlf::before {
+	content: " ";
+	background-image: url(assets/icons/tower.png);
+	background-size: contain;
+}
+
+.cVgl::before {
+	content: " ";
+	background-image: url(assets/icons/goal.webp);
+	height: 2ch;
+	width: 2ch;
+	background-size: contain;
+}
+
+.cVar::before {
+	content: " ";
+	background-image: url(assets/icons/area.webp);
+	background-size: contain;
+}
+
+.inkling::before {
+	content: " ";
+	background-image: url(assets/icons/inkling.webp);
+	background-size: contain;
+}
+
+/* Name Tag Element TBD may remove */
+.slap {
+	vertical-align: top;
+	position: relative;
+	background-color: #d75d2a;
+	max-width: 20em;
+	margin: 0ch;
+	color: white;
+	padding-bottom: 1em;
+	border-radius: 1ch;
+	display: inline-block;
+	width: -webkit-fill-available;
+}
+
+.slap h3 {
+	padding: 0.25em;
+	text-shadow: -3px 3px black;
+	line-height: 0.2em;
+}
+
+.slap > div {
+	background: white;
+	color: black;
+	display: block;
+	min-height: 100px;
+	text-align: start;
+	padding: 1ch;
+	display: flex;
+	flex-direction: column;
+	align-items: anchor-center;
+}
+
+@keyframes morph {
+    0%, to {
+        border-radius: 40% 40% 60% 50%;
+	}
+
+    25% {
+        border-radius: 30% 30% 70% 70%;
+	}
+
+    75% {
+        border-radius: 100% 60% 60% 100%;
+	}
+}
+
+button.settings {
+	z-index: 10;
+	position: absolute;
+	right: 4em;
+	bottom: 4em;
+	width: 4em;
+	height: 4em;
+	cursor: pointer;
+	border: none;
+	background-color: var(--c3);
+	animation: morph 3s linear infinite;
+	border-radius: 100%;
+	box-shadow: inset 2px 2px 20px 0px rgb(248 248 248 / 82%), 5px -10px 18px 4px rgb(255 255 255 / 22%) inset;
+	opacity: 95%;
+}
+
+/* Pattern Blends */
+
+.alpha-blend {
+	--c2: color-mix(in srgb, var(--c1) 75%, black)
+}
+
+.bravo-blend {
+	--c1: color-mix(in srgb, var(--c2) 75%, black)
+}
+
+/* Stripe Background Pattern */
+.stripes {
+	--size: 15px;
+	background-color: var(--c1);
+	background-image: repeating-linear-gradient(130deg, transparent, transparent var(--size), var(--c2) var(--size), var(--c2) calc(var(--size) * 2));
+}
+
+/* Arrow Background Pattern */
+.arrows {
+	--size: var(--arrow-bg-scale);
+	--offset: 92px;
+	--10: calc(var(--size) * 0.078125);
+	--45: calc(var(--size) * 0.3515625);
+	--68: calc(var(--size) * 0.53125);
+	--75: calc(var(--size) * 0.5859375);
+	--88: calc(var(--size) * 0.6875);
+	--100: calc(var(--size) * 0.78125);
+	--105: calc(var(--size) * 0.8203125);
+	--113: calc(var(--size) * 0.8828125);
+	--120: calc(var(--size) * 0.9375);
+	background: linear-gradient(45deg, var(--c2) var(--45), transparent var(--45), transparent var(--120), var(--c1) calc(var(--size) * 0.7109375)), linear-gradient(-225deg, var(--c1) var(--68), transparent var(--68), transparent var(--113), var(--c1) var(--113)), linear-gradient(45deg, transparent var(--45), var(--c2) var(--45), var(--c2) var(--105), transparent var(--105)), linear-gradient(-225deg, transparent var(--75), var(--c1) var(--75), var(--c1) calc(var(--size) * 0.625), transparent var(--10)), linear-gradient(-225deg, transparent var(--88), var(--c1) var(--88), var(--c1) calc(var(--size) * 0.7265625), transparent var(--10)), linear-gradient(-225deg, transparent var(--100), var(--c1) var(--100), var(--c1) calc(var(--size) * 0.828125), transparent var(--10)), linear-gradient(-45deg, transparent var(--68), var(--c2) var(--68), var(--c2) var(--113), transparent var(--113));
+	background-color: var(--c1);
+	background-size: var(--size) var(--size);
+	background-position: var(--offset) var(--offset);
+}
+
+/* Ink Background Pattern */
+.ink {
+	--size: 50px;
+	--_g: calc(2 * var(--size)) calc(2 * var(--size)) radial-gradient(25% 25%, var(--c1) 99%, #0000 101%);
+	background: 0 var(--size) / var(--_g),
+		var(--size) 0 / var(--_g),
+		radial-gradient(50% 50%, var(--c2) 97%, #0000) calc(var(--size) / 2) calc(var(--size) / 2) / var(--size) var(--size),
+		linear-gradient(90deg, var(--c1) 50%, var(--c2) 0) 0 0 / calc(2 * var(--size));
+}
+
+/* Color Patterns */
+.Neutral {
+	--c1: #2f3335;
+	--c2: #3c3f44;
+	--c3: #ffffff;
+}
+
+.Coffee {
+	--c1: #d9ceb2;
+	--c2: #948c75;
+	--c3: #3c3f44;
+}
+
+/* Turf Ink */
+.PinkGreen {
+	--c1: #C83D79;
+	--c2: #409D3B;
+	--c3: #2BDCED;
+}
+
+.PinkBlue {
+	--c1: #C93457;
+	--c2: #048188;
+	--c3: #890B5D;
+}
+
+.PinkOrange {
+	--c1: #DA3781;
+	--c2: #ED9408;
+	--c3: #A577FF;
+}
+
+.OrangeBlue {
+	--c1: #ED9408;
+	--c2: #141494;
+	--c3: #FFFF00;
+}
+
+.GreenPurple {
+	--c1: #799516;
+	--c2: #6E068A;
+	--c3: #118991;
+}
+
+.TurquoiseOrange {
+	--c1: #20837D;
+	--c2: #DF641A;
+	--c3: #AD7710;
+}
+
+.LightBlueDarkBlue {
+	--c1: #228CFF;
+	--c2: #E85407;
+	--c3: #EFF66E;
+}
+
+.LightBlueYellow {
+	--c1: #007EDC;
+	--c2: #E1A307;
+	--c3: #D01D79;
+}
+
+.BlueLime {
+	--c1: #26229F;
+	--c2: #91B00B;
+	--c3: #FF7F19;
+}
+
+/* Ranked Ink */
+.YellowLilac {
+	--c1: #DD9016;
+	--c2: #4D24A3;
+	--c3: #A1E896;
+}
+
+.GreenMazenta {
+	--c1: #79B726;
+	--c2: #A52B85;
+	--c3: #ECC50A;
+}
+
+.LumigreenPurple {
+	--c1: #85E378;
+	--c2: #3D59DE;
+	--c3: #FFA427;
+}
+
+.LightgreenBlue {
+	--c1: #26229F;
+	--c2: #91B00B;
+	--c3: #FF7F19;
+}
+
+.SodaPink {
+	--c1: #65B799;
+	--c2: #9736B2;
+	--c3: #8ED11E;
+}
+
+.GreenOrange {
+	--c1: #319471;
+	--c2: #BF3E24;
+	--c3: #B986ED;
+}
+
+.DarkblueYellow {
+	--c1: #0D195E;
+	--c2: #B97E1A;
+	--c3: #FF5937;
+}
+
+/* Custom Ink */
+.Bandwidth {
+	--c1: #673DB6;
+	--c2: #be0e00;
+	--c3: #59c9a5;
+}
