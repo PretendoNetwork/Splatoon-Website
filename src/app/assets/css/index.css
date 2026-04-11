@@ -249,11 +249,11 @@ button.settings {
 /* Ink Background Pattern */
 .ink {
 	--size: 50px;
-	--_g: calc(2 * var(--size)) calc(2 * var(--size)) radial-gradient(25% 25%, var(--c1) 99%, #0000 101%);
-	background: 0 var(--size) / var(--_g),
-		var(--size) 0 / var(--_g),
-		radial-gradient(50% 50%, var(--c2) 97%, #0000) calc(var(--size) / 2) calc(var(--size) / 2) / var(--size) var(--size),
-		linear-gradient(90deg, var(--c1) 50%, var(--c2) 0) 0 0 / calc(2 * var(--size));
+	--_g: calc(2 * var(--size)) calc(2 * var(--size)) radial-gradient(circle closest-side at 25% 25%, var(--c1) 99%, #0000 101%);
+	background: calc(var(--size) / 2) calc(var(--size) * 1.5) / var(--_g),
+	        calc(var(--size) * 1.5) calc(var(--size) / 2) / var(--_g),
+			radial-gradient(circle closest-side at 50% 50%, var(--c2) 97%, #0000) calc(var(--size) / 2) calc(var(--size) / 2) / var(--size) var(--size),
+			linear-gradient(90deg, var(--c1) 50%, var(--c2) 0) 0 0 / calc(2 * var(--size))
 }
 
 /* Color Patterns */
