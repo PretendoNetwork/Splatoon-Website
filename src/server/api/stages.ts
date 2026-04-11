@@ -7,7 +7,7 @@ import pkg from '@pretendonetwork/nintendo-files';
 import { config } from '../../config';
 import type { BossFile, TaskSheet } from '../../types/boss';
 import type { Phase, Settings } from '../../types/settings';
-import { LOG_INFO } from '~~/logger';
+import logger from '~~/logger';
 const { BYAML } = pkg;
 
 const { boss, domain, app_id, max_response } = config;
@@ -95,7 +95,7 @@ async function fetchRotationFile() {
 		let fileContents = fs.readFileSync('VSSetting.json', {encoding: 'utf-8'});
 		let json = JSON.parse(fileContents);
 		if (new Date(json.FetchedAt) > new Date(Date.now() - 60*60*1000)) {
-			LOG_INFO('Using cached file');
+			logger.info('Using cached file');
 			return json;
 		}
 	}
@@ -119,7 +119,7 @@ async function fetchRotationFile() {
 			currentDate.setHours(currentDate.getHours() + timeOffset);
 	}
 
-	LOG_INFO('Caching file');
+	logger.info('Caching file');
 	fs.writeFileSync('VSSetting.json', JSON.stringify(json, null, 4), 'utf-8');
 	return json;
 }
@@ -153,7 +153,7 @@ export async function fetchSettings(): Promise<Settings | null> {
 }
 
 export default cachedEventHandler(async (event) => {
-	LOG_INFO('Fetching settings');
+	logger.info('Fetching settings');
   return await fetchSettings();
 }, {
   maxAge: 1,
