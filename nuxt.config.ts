@@ -25,5 +25,15 @@ export default defineNuxtConfig({
 			{ code: 'en-US', name: 'English (United States)', file: 'en_US.json' },
 			{ code: 'es-ES', name: 'Español', file: 'es_ES.json' },
 		]
-	}
+	},
+	// TODO: How do I actually validate this now that we're importing it here?
+	runtimeConfig: {
+    boss: {
+			aes_key: '',
+			hmac_key: '',
+			domain: '',
+			app_id: ''
+		},
+		max_response: 12
+  }
 });

@@ -4,14 +4,14 @@ import xml2js from 'xml2js';
 import type { H3Event } from 'h3'
 import { decryptWiiU } from '@pretendonetwork/boss-crypto';
 import pkg from '@pretendonetwork/nintendo-files';
-import { config } from '../../config';
+const config = useRuntimeConfig();
 import type { BossFile, TaskSheet } from '../../types/boss';
 import type { Phase, Settings } from '../../types/settings';
 import logger from '~~/logger';
 const { BYAML } = pkg;
 
-const { boss, domain, app_id, max_response } = config;
-const { aes_key, hmac_key } = boss;
+const { boss, max_response } = config;
+const { aes_key, hmac_key, domain, app_id } = boss;
 
 tls.DEFAULT_MIN_VERSION = 'TLSv1.1';
 
