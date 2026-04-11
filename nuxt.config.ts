@@ -34,6 +34,7 @@ export default defineNuxtConfig({
 			domain: '',
 			app_id: ''
 		},
+		postgresURI: '',
 		max_response: 12
   }
 });
