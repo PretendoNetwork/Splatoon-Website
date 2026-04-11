@@ -19,6 +19,7 @@ useHead({
 })
 
 const { data: stages } = await useFetch('/api/stages', { server: true });
+const { data: matches } = await useFetch('/api/matches', { server: true });
 const pages = [$t("titles.regular"), $t("titles.ranked"), $t("titles.gatherings")]
 
 function parseDate(timestamp: string | object) {
@@ -53,10 +54,11 @@ function parseDate(timestamp: string | object) {
 				</template>
 			</Page>
 			<Page>
-				<!--<Poster :id="123" mapID="0" gameMode="cPnt" :players="['Player 1', 'Player 2', 'Player 3']"></Poster>
-				<Poster :id="321" mapID="1" gameMode="cVar" :players="[1, 2, 3, 4, 5, 6, 7, 8]"></Poster>
-				<Poster :id="213" mapID="2" gameMode="cVlf" :players="[1, 2, 3, 4, 5, 6, 7, 8, 9]"></Poster>
-				<Poster :id="312" mapID="3" gameMode="cVgl" :players="[]"></Poster>-->
+				<h1 v-if="matches == undefined" style="color: white">Loading...</h1>
+				<!--TODO: This gamemode mapping is bullshit; figure out the actual values-->
+				<template v-if="matches" v-for="match in matches">
+					<Poster :id="match.id" mapID="1" :gameMode="['cPnt', 'cVar', 'cVlf', 'cVgl'][match.game_mode]" :players="match.participants"></Poster>
+				</template>
 			</Page>
 		</div>
 	</div>

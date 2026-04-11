@@ -17,7 +17,7 @@ async function connectDB() {
 	}
 }
 
-async function fetchData(): Promise<Match[]> {
+async function fetchMatches(): Promise<Match[]> {
 	if (!sql) return [];
 
 	const result = await sql<Match[]>`
@@ -32,5 +32,5 @@ async function fetchData(): Promise<Match[]> {
 connectDB();
 
 export {
-	fetchData
+	fetchMatches
 }

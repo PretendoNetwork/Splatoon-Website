@@ -1,5 +1,5 @@
 interface Match {
-  id: number;
+  id: string;
 	started_time: Date;
   participants: [number];
 	owner_pid: number;

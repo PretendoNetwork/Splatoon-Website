@@ -2,7 +2,7 @@
 export default {
 	props: {
 		id: {
-			type: Number,
+			type: String,
 			required: true
 		},
 		mapID: {
@@ -49,7 +49,6 @@ export default {
 	display: inline-block;
 	margin-top: 0;
 	padding-top: 0;
-	/* box-shadow: black 4px 20px 20px; */
 	margin: 0 0.5em;
 }
 
