@@ -1,7 +1,7 @@
 {
 	"meta": {
-		"title": "(es_ES) SplatNet",
-		"description": "(es_ES) Idk I need to come up with a better name lol"
+		"title": "(es_ES) Splatoon Website",
+		"description": ""
 	},
 	"titles": {
 		"regular": "Combate amistoso",
@@ -31,5 +31,12 @@
 		"cVar": "Pintazonas",
 		"cVlf": "Torreón",
 		"cVgl": "Pez dorado"
+	},
+	"games": {
+		"0": "Territorial",
+		"1": "Combate competitivo",
+		"2": "Festival del Teñido",
+		"3": "Combate privado",
+		"4": "Combate en equipo"
 	}
 }

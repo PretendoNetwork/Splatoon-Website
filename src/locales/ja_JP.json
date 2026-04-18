@@ -1,7 +1,7 @@
 {
 	"meta": {
-		"title": "(ja_JP) SplatNet",
-		"description": "(ja_JP) Idk I need to come up with a better name lol"
+		"title": "(ja_JP) Splatoon Website",
+		"description": ""
 	},
 	"titles": {
 		"regular": "レギュラーマッチ",
@@ -31,5 +31,12 @@
 		"cVar": "ガチエリア",
 		"cVlf": "ガチヤグラ",
 		"cVgl": "ガチホコバトル"
+	},
+	"games": {
+		"0": "ナワバリバトル",
+		"1": "ガチマッチ",
+		"2": "フェス",
+		"3": "プライベートマッチ",
+		"4": "タッグマッチ"
 	}
 }

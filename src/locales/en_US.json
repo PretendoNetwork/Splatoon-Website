@@ -1,7 +1,7 @@
 {
 	"meta": {
-		"title": "SplatNet",
-		"description": "Idk I need to come up with a better name lol"
+		"title": "Splatoon Website",
+		"description": ""
 	},
 	"titles": {
 		"regular": "Regular Battle",
@@ -31,5 +31,12 @@
 		"cVar": "Splat Zones",
 		"cVlf": "Tower Control",
 		"cVgl": "Rainmaker"
+	},
+	"games": {
+		"0": "Turf War",
+		"1": "Ranked Battle",
+		"2": "Splatfest",
+		"3": "Private Battle",
+		"4": "Squad Battle"
 	}
 }
