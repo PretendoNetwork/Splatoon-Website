@@ -40,8 +40,8 @@ function parseDate(timestamp: string | object) {
 				<h1 v-if="stages == undefined" style="color: white">Loading...</h1>
 				<template v-if="stages" v-for="(phase, index) in stages.Phases">
 					<Header :index="index">{{ parseDate(String(phase.Date)) }}</Header>
-					<Polaroid v-for="stage in phase.RegularStages" :mapID="stage.MapID" :gameMode="phase.RegularRule"
-						image="test"></Polaroid>
+					<Polaroid v-for="stage in phase.RegularStages" :mapID="stage.MapID" :gameMode="phase.RegularRule">
+					</Polaroid>
 				</template>
 			</Page>
 			<Page>
@@ -49,15 +49,15 @@ function parseDate(timestamp: string | object) {
 				<h1 v-if="stages == undefined" style="color: white">Loading...</h1>
 				<template v-if="stages" v-for="(phase, index) in stages.Phases">
 					<Header :index="index + 1">{{ parseDate(String(phase.Date)) }}</Header>
-					<Polaroid v-for="stage in phase.GachiStages" :mapID="stage.MapID" :gameMode="phase.GachiRule" image="test">
+					<Polaroid v-for="stage in phase.GachiStages" :mapID="stage.MapID" :gameMode="phase.GachiRule">
 					</Polaroid>
 				</template>
 			</Page>
 			<Page>
+				<!-- Matches -->
 				<h1 v-if="matches == undefined" style="color: white">Loading...</h1>
-				<!--TODO: This gamemode mapping is bullshit; figure out the actual values-->
 				<template v-if="matches" v-for="match in matches">
-					<Poster :id="match.id" mapID="1" :gameMode="['cPnt', 'cVar', 'cVlf', 'cVgl'][match.game_mode]" :players="match.participants"></Poster>
+					<Poster :id="match.id" :gameMode="Number(match.game_mode)" :players="match.participants" :stages="stages?.Phases"></Poster>
 				</template>
 			</Page>
 		</div>

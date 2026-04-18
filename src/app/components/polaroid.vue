@@ -9,10 +9,6 @@ export default {
 			type: Number,
 			required: true
 		},
-		image: {
-			type: String,
-			required: true
-		},
 		gameMode: {
 			type: String,
 			required: true
