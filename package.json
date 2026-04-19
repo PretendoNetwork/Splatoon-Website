@@ -16,7 +16,7 @@
     "@nuxt/fonts": "^0.14.0",
     "@nuxtjs/i18n": "^10.2.4",
     "@pretendonetwork/boss-crypto": "^1.2.2",
-    "@pretendonetwork/grpc": "^2.4.4",
+    "@pretendonetwork/grpc": "^2.5.1",
     "@pretendonetwork/nintendo-files": "^1.1.0",
     "colors": "^1.4.0",
     "consola": "^3.4.2",
