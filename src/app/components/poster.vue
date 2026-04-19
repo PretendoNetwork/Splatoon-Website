@@ -45,7 +45,6 @@ export default {
 		},
 		getMode(): string | undefined {
 			if (!this.stages) return;
-			console.log(this.isRanked(), RANKED, SQUAD, RANKED==this.gameMode, SQUAD==this.gameMode)
 			return this.isRanked() ? this.stages[0]?.GachiRule : this.stages[0]?.RegularRule;
 		},
 		getGameType(): string {

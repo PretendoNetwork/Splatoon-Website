@@ -3,7 +3,7 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "start": "node --enable-source-maps .output/server/index.mjs",
+    "start": "node --enable-source-maps src/.output/server/index.mjs",
     "build": "nuxt build",
     "prepare": "nuxt prepare",
     "dev": "nuxt dev",
