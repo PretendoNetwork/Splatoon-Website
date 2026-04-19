@@ -41,6 +41,13 @@ export default defineNuxtConfig({
 			domain: '',
 			app_id: ''
 		},
+		grpc: {
+			account: {
+				api_key: '',
+				host: '',
+				port: ''
+			}
+		},
 		postgresURI: '',
 		max_response: 12
 	}
