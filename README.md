@@ -13,6 +13,7 @@ Create a .env with the following values:
 | NUXT_BOSS_DOMAIN           | Domain where the BOSS server exists. E.g., `https://npts.app.pretendo.cc`                  |
 | NUXT_BOSS_APP_ID           | BOSS App ID. Should be `rjVlM7hUXPxmYQJh` for Splatoon                                     |
 | NUXT_MAX_RESPONSE          | Number of hours of to show stages for                                                      |
+| NUXT_FILE_CACHE_DIR        | Directory where cached VSSetting files are stored.                                         |
 | NUXT_POSTGRES_URI          | Splatoon postgres uri e.g., `postgres://user:password@host:post/database?sslmode=disabled` |
 | NUXT_GRPC_ACCOUNT_API_KEY  | API Key to connect to the account grpc server                                              |
 | NUXT_GRPC_ACCOUNT_PORT     | Port to connect to the account grpc server                                                 |

@@ -10,7 +10,7 @@ import type { Phase, Settings } from '~~/types/settings';
 import logger from '~~/logger';
 const { BYAML } = pkg;
 
-const { boss, max_response } = config;
+const { boss, maxResponse, fileCacheDir } = config;
 const { aes_key, hmac_key, domain, app_id } = boss;
 
 tls.DEFAULT_MIN_VERSION = 'TLSv1.1';
@@ -60,10 +60,11 @@ async function decryptBossFile(file: BossFile | null) {
 		const buffer = Buffer.from(await response.arrayBuffer());
 		const { content } = decryptWiiU(buffer, aes_key, hmac_key);
 
-		fs.writeFileSync(file.Filename, content);
+		fs.writeFileSync(`${fileCacheDir}/${file.Filename}`, content);
 		return content;
 	}
 	catch (e) {
+		logger.error(e);
 		return null;
 	}
 }
@@ -91,8 +92,9 @@ function getSensibleJSON(byaml: any): any {
 }
 
 async function fetchRotationFile() {
-	if (fs.existsSync('VSSetting.json')) {
-		let fileContents = fs.readFileSync('VSSetting.json', {encoding: 'utf-8'});
+	const cacheFile = `${fileCacheDir}/VSSetting.json`;
+	if (fs.existsSync(cacheFile)) {
+		let fileContents = fs.readFileSync(cacheFile, {encoding: 'utf-8'});
 		let json = JSON.parse(fileContents);
 		if (new Date(json.FetchedAt) > new Date(Date.now() - 60*60*1000)) {
 			logger.info('Using cached file');
@@ -120,12 +122,15 @@ async function fetchRotationFile() {
 	}
 
 	logger.info('Caching file');
-	fs.writeFileSync('VSSetting.json', JSON.stringify(json, null, 4), 'utf-8');
+	fs.writeFileSync(cacheFile, JSON.stringify(json, null, 4), 'utf-8');
 	return json;
 }
 
 export async function fetchSettings(): Promise<Settings | null> {
 	let json = await fetchRotationFile();
+
+	if (!json)
+		return null;
 
 	const now = new Date();
 	let currentPhases: Phase[] = [];
@@ -144,7 +149,7 @@ export async function fetchSettings(): Promise<Settings | null> {
 		if (rotationStart >= now)
 			currentPhases.push(phase);
 
-		if (currentPhases.length >= max_response)
+		if (currentPhases.length >= Number(maxResponse))
 			break;
 	}
 	json.Phases = currentPhases;

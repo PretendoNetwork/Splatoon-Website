@@ -50,6 +50,7 @@ export default defineNuxtConfig({
 			}
 		},
 		postgresURI: '',
-		max_response: 12
+		maxResponse: 12,
+		fileCacheDir: './'
 	}
 });
