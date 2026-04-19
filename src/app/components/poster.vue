@@ -113,22 +113,18 @@ export default {
 	box-shadow: black 5px 5px 10px;
 }
 
-.page img {
+.poster img {
     object-fit: cover;
     padding: 10px;
     margin-bottom: 0;
     padding-bottom: 0;
 		width: calc(100% - 2ch);
-		clip-path: polygon(0% 102%, 13% 69%, 49% 59%, 50% 37%, 87% 28%, 97% 5%, 100% 100%);
-		transform: rotate(-2deg);
 }
 
-.page img:last-of-type {
+.poster img:last-of-type {
 	position: absolute;
 	left: 0;
 	top: 0;
-	clip-path: polygon(0% 100%, 12% 67%, 48% 57%, 49% 36%, 86% 25%, 99% 0%, 0% 0%);
-	transform: rotate(-1deg);
 }
 
 .poster img {
@@ -196,34 +192,5 @@ h4 {
 	background-size: 3ch;
 	background-position-y: 50%;
 	background-position-x: -0.7ch;
-}
-
-.scotch-tape {
-  &:before,
-  &:after {
-    background: rgba(255,255,235,.6);
-    box-shadow: 0 1px 3px rgba(0,0,0,.4);
-    content: "";
-    display: block;
-    height: 20px;
-    position: absolute;
-    margin: auto;
-    width: 60px;
-		z-index: 100;
-  }
-}
-
-.scotch-tape.corners {
-	&:before {
-    bottom: 15px;
-		left: 0;
-		transform: rotate(42deg);
-  }
-
-  &:after {
-    right: -2px;
-		top: -2px;
-		transform: rotate(50deg);
-  }
 }
 </style>
