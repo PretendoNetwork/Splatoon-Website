@@ -8,14 +8,21 @@ export default defineNuxtConfig({
 			standalone: false
 		}
 	},
+	app: {
+		head: {
+			script: [
+				{ tagPosition: 'bodyClose', src: '/js/index.js' },
+			]
+		}
+	},
 	i18n: {
 		compilation: {
 			strictMessage: false
 		},
 		detectBrowserLanguage: {
-      useCookie: false,
-      redirectOn: 'root'
-    },
+			useCookie: false,
+			redirectOn: 'root'
+		},
 		restructureDir: '',
 		strategy: 'no_prefix',
 		defaultLocale: 'en-US',
@@ -28,7 +35,7 @@ export default defineNuxtConfig({
 	},
 	// TODO: How do I actually validate this now that we're importing it here?
 	runtimeConfig: {
-    boss: {
+		boss: {
 			aes_key: '',
 			hmac_key: '',
 			domain: '',
@@ -36,5 +43,5 @@ export default defineNuxtConfig({
 		},
 		postgresURI: '',
 		max_response: 12
-  }
+	}
 });

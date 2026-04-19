@@ -44,7 +44,7 @@ body {
   overflow-y: hidden;
 }
 
-.content {
+div#content {
   display: grid;
   grid-template-columns: repeat(auto-fill, min(var(--max-window-width), 100vw));
   grid-auto-flow: column;
@@ -271,7 +271,7 @@ div.polaroid:nth-of-type(4n) {
   align-items: anchor-center;
 }
 
-@keyframes morph {
+@keyframes morph-1 {
   0%,
   to {
     border-radius: 40% 40% 60% 50%;
@@ -286,6 +286,33 @@ div.polaroid:nth-of-type(4n) {
   }
 }
 
+@keyframes morph-2 {
+  0%,
+  to {
+    border-radius: 50% 60% 40% 40%;
+    -webkit-border-radius: 50% 60% 40% 40%;
+    -moz-border-radius: 50% 60% 40% 40%;
+    -ms-border-radius: 50% 60% 40% 40%;
+    -o-border-radius: 50% 60% 40% 40%;
+}
+
+  25% {
+    border-radius: 70% 70% 30% 30%;
+    -webkit-border-radius: 70% 70% 30% 30%;
+    -moz-border-radius: 70% 70% 30% 30%;
+    -ms-border-radius: 70% 70% 30% 30%;
+    -o-border-radius: 70% 70% 30% 30%;
+}
+
+  75% {
+    border-radius: 100% 60% 60% 100%;
+    -webkit-border-radius: 100% 60% 60% 100%;
+    -moz-border-radius: 100% 60% 60% 100%;
+    -ms-border-radius: 100% 60% 60% 100%;
+    -o-border-radius: 100% 60% 60% 100%;
+}
+}
+
 button.settings {
   z-index: 10;
   position: absolute;
@@ -296,7 +323,7 @@ button.settings {
   cursor: pointer;
   border: none;
   background-color: var(--c3);
-  animation: morph 3s linear infinite;
+  animation: morph-1 3s linear infinite;
   border-radius: 100%;
   box-shadow:
     inset 2px 2px 20px 0px rgb(248 248 248 / 82%),
