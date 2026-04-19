@@ -30,6 +30,6 @@ export default cachedEventHandler(async (event) => {
 
 	return matches.map(element => ({...element, participants : element.participants.map(pid => pnids[pid]?.username)}));
 }, {
-  maxAge: 1,
+  maxAge: 60,
   getKey: (event: H3Event) => event.path
 })

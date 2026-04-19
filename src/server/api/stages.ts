@@ -156,6 +156,6 @@ export default cachedEventHandler(async (event) => {
 	logger.info('Fetching settings');
   return await fetchSettings();
 }, {
-  maxAge: 1,
+  maxAge: 60,
   getKey: (event: H3Event) => event.path
 })
