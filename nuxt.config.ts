@@ -12,7 +12,8 @@ export default defineNuxtConfig({
 		head: {
 			script: [
 				{ tagPosition: 'bodyClose', src: '/js/index.js' },
-			]
+			],
+			link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }]
 		}
 	},
 	i18n: {
