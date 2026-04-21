@@ -52,6 +52,10 @@ export default defineNuxtConfig({
 				port: ''
 			}
 		},
+		log: {
+			format: 'pretty',
+			level: 'warn'
+		},
 		postgresURI: '',
 		maxResponse: 12,
 		fileCacheDir: './'

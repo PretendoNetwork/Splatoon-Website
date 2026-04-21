@@ -2,7 +2,7 @@ import type { H3Event } from 'h3'
 import { createChannel, createClient, Metadata } from 'nice-grpc';
 import { AccountServiceDefinition } from '@pretendonetwork/grpc/account/v2/account_service'
 import type { GetPNIDsResponse } from '@pretendonetwork/grpc/account/v2/get_pnids_rpc'
-import logger from '~~/logger';
+import { logger } from '~~/logger';
 import { fetchMatches } from '~~/database';
 
 const config = useRuntimeConfig();

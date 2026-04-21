@@ -1,5 +1,5 @@
 import postgres from 'postgres';
-import logger from '~~/logger';
+import { logger } from '~~/logger';
 import type { Match } from '~~/types/database';
 const config = useRuntimeConfig();
 
