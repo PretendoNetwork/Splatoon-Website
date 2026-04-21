@@ -36,6 +36,9 @@ export default defineNuxtConfig({
 	},
 	// TODO: How do I actually validate this now that we're importing it here?
 	runtimeConfig: {
+		nitro: {
+			envPrefix: 'PN_SPLATOON_WEBSITE_',
+		},
 		boss: {
 			aes_key: '',
 			hmac_key: '',
