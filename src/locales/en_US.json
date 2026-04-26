@@ -6,7 +6,8 @@
 	"titles": {
 		"regular": "Regular Battle",
 		"ranked": "Ranked Battle",
-		"gatherings": "Gatherings"
+		"gatherings": "Gatherings",
+		"friends": "Friends"
 	},
 	"stages": {
 		"0": "Urchin Underpass",
@@ -24,7 +25,8 @@
 		"12": "Museum d'Alfonsino",
 		"13": "Ancho-V Games",
 		"14": "Piranha Pit",
-		"15": "Mahi-Mahi Resort"
+		"15": "Mahi-Mahi Resort",
+		"None": "No Stages"
 	},
 	"modes": {
 		"cPnt": "Turf War",
@@ -38,5 +40,12 @@
 		"2": "Splatfest",
 		"3": "Private Battle",
 		"4": "Squad Battle"
+	},
+	"loading": "Loading...",
+	"matches": {
+		"none": "No Matches"
+	},
+	"friends": {
+		"none": "No Friends"
 	}
 }

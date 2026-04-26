@@ -50,6 +50,11 @@ export default defineNuxtConfig({
 				api_key: '',
 				host: '',
 				port: ''
+			},
+			friends: {
+				api_key: '',
+				host: '',
+				port: ''
 			}
 		},
 		log: {

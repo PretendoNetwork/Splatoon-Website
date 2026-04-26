@@ -11,7 +11,12 @@ export default {
 		},
 		gameMode: {
 			type: String,
-			required: true
+			required: false
+		},
+		small: {
+			type: Boolean,
+			required: false,
+			default: false
 		}
 	},
 	methods: {
@@ -20,9 +25,9 @@ export default {
 </script>
 
 <template>
-	<div class="polaroid">
+	<div class="polaroid" :class="small ? 'small' : ''">
 		<img class="card" :src="`/images/stages/${mapID}.webp`" />
-		<h4 :class="gameMode">{{ $t(`modes.${gameMode}`) }}</h4>
+		<h4 v-if="gameMode" :class="gameMode">{{ $t(`modes.${gameMode}`) }}</h4>
 		<h3>{{ $t(`stages.${mapID}`) }}</h3>
 	</div>
 </template>
@@ -79,5 +84,25 @@ img {
 	display: inline-block;
 	width: -webkit-fill-available;
 	margin: 1ch 1ch 0 1ch;
+}
+
+.small {
+	margin: 1ch;
+	max-width: 200px;
+}
+
+.small h3 {
+	font-size: 15px;
+	line-height: 17px;
+}
+
+.small h4 {
+	font-size: 13px;
+	line-height: 15px;
+	padding-left: 1.5ch;
+}
+
+.small .card {
+	margin: 0.5ch 0.5ch 0 0.5ch;
 }
 </style>

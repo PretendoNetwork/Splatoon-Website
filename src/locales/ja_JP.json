@@ -6,7 +6,8 @@
 	"titles": {
 		"regular": "レギュラーマッチ",
 		"ranked": "ガチマッチ",
-		"gatherings": "(ja_JP) Gatherings"
+		"gatherings": "(ja_JP) Gatherings",
+		"Friends": "(ja_JP) Friends"
 	},
 	"stages": {
 		"0": "デカライン高架下",
@@ -38,5 +39,9 @@
 		"2": "フェス",
 		"3": "プライベートマッチ",
 		"4": "タッグマッチ"
+	},
+	"loading": "(ja_JP) Loading...",
+	"matches": {
+		"none": "(ja_JP) No Matches"
 	}
 }

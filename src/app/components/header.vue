@@ -8,6 +8,11 @@ export default {
 		index: {
 			type: Number,
 			required: true
+		},
+		size: {
+			type: String,
+			required: false,
+			default: 'large'
 		}
 	},
 	methods: {
@@ -23,15 +28,21 @@ export default {
 
 <template>
 	<header class="stripes" :class="headerDirection(index), headerBlend(index)">
-		<h1>
+		<h1 v-if="size == 'large'">
 			<slot></slot>
 		</h1>
+		<h2 v-if="size == 'medium'">
+			<slot></slot>
+		</h2>
+		<h3 v-if="size == 'small'">
+			<slot></slot>
+		</h3>
 	</header>
 </template>
 
 <style scoped>
 /* Header Text */
-header h1 {
+header h1, header h2, header h3 {
 	padding: 0.1ch 1ch;
 	color: white;
 	margin: 0;

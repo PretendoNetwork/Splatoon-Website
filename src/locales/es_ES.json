@@ -6,7 +6,8 @@
 	"titles": {
 		"regular": "Combate amistoso",
 		"ranked": "Combate competitivo",
-		"gatherings": "(es_ES) Gatherings"
+		"gatherings": "(es_ES) Gatherings",
+		"Friends": "(es_ES) Friends"
 	},
 	"stages": {
 		"0": "Parque Viaducto",
@@ -38,5 +39,9 @@
 		"2": "Festival del Teñido",
 		"3": "Combate privado",
 		"4": "Combate en equipo"
+	},
+	"loading": "(es_ES) Loading...",
+	"matches": {
+		"none": "(es_ES) No Matches"
 	}
 }
