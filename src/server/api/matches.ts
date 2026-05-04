@@ -12,14 +12,19 @@ const gRPCAccountChannel = createChannel(`${host}:${port}`);
 const gRPCAccountClient = createClient(AccountServiceDefinition, gRPCAccountChannel);
 
 async function fetchPNIDs(pids: number[]) {
-	let result: GetPNIDsResponse = await gRPCAccountClient.getPNIDs({
-		pid: pids
-	}, {
-			metadata: Metadata({
-				'X-API-Key': api_key
-			})
-	});
-	return result.userData
+	try {
+		let result: GetPNIDsResponse = await gRPCAccountClient.getPNIDs({
+			pid: pids
+		}, {
+				metadata: Metadata({
+					'X-API-Key': api_key
+				})
+		});
+		return result.userData
+	} catch (e) {
+		logger.error(e);
+		return []
+	}
 }
 
 export default cachedEventHandler(async (event) => {
