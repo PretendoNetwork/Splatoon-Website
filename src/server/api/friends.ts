@@ -1,7 +1,7 @@
 import type { H3Event } from 'h3'
 import { createChannel, createClient, Metadata } from 'nice-grpc';
 import { FriendsServiceDefinition } from '@pretendonetwork/grpc/friends/v2/friends_service'
-import type { GetUserFriendsDataWiiUResponse, GetUserFriendsData3DSResponse } from '@pretendonetwork/grpc/friends/v2/get_user_friend_data_rpc'
+import type { GetUserFriendsDataWiiUResponse } from '@pretendonetwork/grpc/friends/v2/get_user_friend_data_wiiu_rpc'
 import { logger } from '~~/logger';
 
 const config = useRuntimeConfig();
@@ -14,7 +14,7 @@ BigInt.prototype.toJSON = function () {
   return JSON.rawJSON(this.toString());
 };
 
-async function fetchFriendsWiiU() {
+async function fetchFriends() {
 	let result: GetUserFriendsDataWiiUResponse = await gRPCFriendsClient.getUserFriendsDataWiiU({
 		pid: 1542385105
 	}, {
@@ -25,21 +25,10 @@ async function fetchFriendsWiiU() {
 	return result.friends
 }
 
-async function fetchFriends3DS() {
-	let result: GetUserFriendsData3DSResponse = await gRPCFriendsClient.getUserFriendsData3DS({
-		pid: 1542385105
-	}, {
-			metadata: Metadata({
-				'X-API-Key': api_key
-			})
-	});
-	return result.friends
-}
-
 export default cachedEventHandler(async (event) => {
-	logger.info('Fetching friends');
-  const friends = await fetchFriendsWiiU();
-	console.log(friends[0]);
+	logger.debug('Fetching friends');
+  const friends = await fetchFriends();
+
 	return friends;
 }, {
   maxAge: 0,
