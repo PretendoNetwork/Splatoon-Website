@@ -1,6 +1,26 @@
+<script lang="ts">
+export default {
+	props: {
+		theme: {
+			type: String,
+			required: false,
+			default: "arrows Neutral"
+		},
+		width: {
+			type: String,
+			required: false
+		},
+		height: {
+			type: String,
+			required: false
+		}
+	}
+}
+</script>
+
 <template>
   <div class="settings-overlay" @click.self="$emit('close-modal')">
-    <div class="settings-window arrows Neutral">
+    <div class="settings-window" :class="theme != '' ? `${theme} theme` : ''" :style="`width: ${width};height: ${height}`">
       <slot/>
     </div>
   </div>
@@ -28,7 +48,6 @@ h2 {
   z-index: 10;
   display: flex;
   flex-direction: column;
-  border-radius: 2em;
   padding: 1em;
   margin: 1em;
   color: white;
@@ -36,6 +55,12 @@ h2 {
   width: 100%;
   max-height: 35em;
 	rotate: -2deg;
+	align-items: center;
+	overflow: visible;
+}
+
+.theme {
+	border-radius: 2em;
 	overflow-y: scroll;
 }
 </style>
