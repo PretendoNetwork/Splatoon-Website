@@ -2,6 +2,7 @@ import type { H3Event } from 'h3'
 import { createChannel, createClient, Metadata } from 'nice-grpc';
 import { FriendsServiceDefinition } from '@pretendonetwork/grpc/friends/v2/friends_service'
 import type { GetUserFriendsDataWiiUResponse } from '@pretendonetwork/grpc/friends/v2/get_user_friend_data_wiiu_rpc'
+import type { FriendInfoWiiU } from '@pretendonetwork/grpc/friends/v2/friend_info'
 import { logger } from '~~/logger';
 
 const config = useRuntimeConfig();
@@ -14,7 +15,7 @@ BigInt.prototype.toJSON = function () {
   return JSON.rawJSON(this.toString());
 };
 
-async function fetchFriends() {
+async function fetchFriends(): Promise<FriendInfoWiiU[]> {
 	let result: GetUserFriendsDataWiiUResponse = await gRPCFriendsClient.getUserFriendsDataWiiU({
 		pid: 1542385105
 	}, {

@@ -8,6 +8,8 @@ import Poster from '../components/poster.vue';
 import UserSettings from '../components/userSettings.vue';
 import UserProfile from '../components/userProfile.vue';
 import Tag from '../components/tag.vue'
+import type { Settings } from '~~/types/settings';
+import type { Match } from '~~/types/database';
 import '~/assets/css/index.css'
 
 const { te, t, tm, locale } = useI18n();
@@ -22,9 +24,9 @@ useHead({
 	}
 })
 
-const { data: stages } = await useFetch('/api/stages', { server: true });
-const { data: matches } = await useFetch('/api/matches', { server: true });
-const { data: friends } = await useFetch('/api/friends', { server: true });
+const { data: stages } = await useFetch<Settings>('/api/stages', { server: true });
+const { data: matches } = await useFetch<Match[]>('/api/matches', { server: true });
+const { data: friends } = await useFetch<FriendInfoWiiU[]>('/api/friends', { server: true });
 
 const pages = [$t("titles.regular"), $t("titles.ranked"), $t("titles.gatherings"), $t("titles.friends")]
 
@@ -75,7 +77,6 @@ function updateUser(user: FriendInfoWiiU) {
 			</Page>
 			<Page :contents="matches" contentsEmptyString="matches.none">
 				<!-- Matches -->
-				<h1 v-if="matches && matches.length == 0" style="color: white">No Matches</h1>
 				<template v-if="matches" v-for="match in matches">
 					<Poster :id="match.id" :gameMode="Number(match.game_mode)" :players="match.participants"
 						:stages="stages?.Phases"></Poster>
