@@ -16,14 +16,19 @@ BigInt.prototype.toJSON = function () {
 };
 
 async function fetchFriends(): Promise<FriendInfoWiiU[]> {
-	let result: GetUserFriendsDataWiiUResponse = await gRPCFriendsClient.getUserFriendsDataWiiU({
-		pid: 1542385105
-	}, {
-			metadata: Metadata({
-				'X-API-Key': api_key
-			})
-	});
-	return result.friends
+	try {
+		let result: GetUserFriendsDataWiiUResponse = await gRPCFriendsClient.getUserFriendsDataWiiU({
+			pid: 1542385105 // TODO: implement auth and rip this out
+		}, {
+				metadata: Metadata({
+					'X-API-Key': api_key
+				})
+		});
+		return result.friends
+	} catch (e) {
+		logger.error(e);
+		return []
+	}
 }
 
 export default cachedEventHandler(async (event) => {
