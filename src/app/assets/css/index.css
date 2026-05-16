@@ -12,8 +12,8 @@
 }
 
 @font-face {
-  font-family: "LED Dot-Matrix";
-  src: url("~/assets/fonts/LED Dot-Matrix.ttf") format("opentype");
+  font-family: "PixelMplus12-Regular";
+  src: url("~/assets/fonts/PixelMplus12-Regular.ttf") format("opentype");
 }
 
 html {

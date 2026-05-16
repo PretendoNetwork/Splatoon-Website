@@ -16,8 +16,19 @@ useHead({
 	],
 	bodyAttrs: {
 		class: 'ink Neutral',
-	}
+	},
+	link: [
+		{
+      rel: 'preload',
+      type: 'font/ttf',
+      href: '~/assets/fonts/PixelMplus12-Regular.ttf',
+      as: 'font',
+      crossorigin: ''
+    }
+	]
 })
+
+await preloadComponents('Timeline');
 
 const { data: stages } = await useFetch('/api/stages', { server: true });
 const { data: matches } = await useFetch('/api/matches', { server: true });
