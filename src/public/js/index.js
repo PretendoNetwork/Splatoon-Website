@@ -1,7 +1,18 @@
 const frame = document.getElementById('content');
 
+const debounce = (callback, wait) => {
+  let timeoutId = null;
+  return (...args) => {
+    window.clearTimeout(timeoutId);
+    timeoutId = window.setTimeout(() => {
+      callback(...args);
+    }, wait);
+  };
+}
+
 class Matrix {
-	canvas = document.getElementById('ledSign');
+	timelineCanvas = document.getElementById('ledSign');
+	drawCanvas = document.createElement('canvas');
 	textList = [];
 	SIGN_ROWS = 15;
 	GLYPH_ROWS = 10;
@@ -13,14 +24,19 @@ class Matrix {
 	flicker = true;
 
 	constructor() {
+		this.drawCanvas.style.display = 'none';
+		document.body.appendChild(this.drawCanvas);
 		setInterval(this.triggerFlickers.bind(this), 3000);
-		window.addEventListener('resize', this.render.bind(this));
+		window.addEventListener('resize', debounce(this.render.bind(this), 250));
+		this.setText([' ']); // Force the browser to actual load the font
 	}
 
 	setText(newTextList) {
 		this.textList = newTextList;
 		this.bitmap = this.generateBitMap();
 		this.litDots = [];
+
+		if (this.bitmap.length < this.GLYPH_ROWS) return;
 
 		for (let row = 0; row < this.GLYPH_ROWS; row++) {
 			for (let col = 0; col < this.bitmap[row].length; col++) {
@@ -71,19 +87,17 @@ class Matrix {
 	}
 
 	generateBitMap() {
+		if (this.textList.length < 1) return [];
 		const fontSize = 12;
-		const canvas = document.createElement('canvas');
-		const ctx = canvas.getContext('2d');
+		const ctx = this.drawCanvas.getContext('2d');
 		const pageWidth = document.getElementById('content').offsetWidth;
 		const font = `${fontSize}px "PixelMplus12-Regular"`;
 
 		ctx.font = font;
 		ctx.textBaseline = 'top';
 
-		canvas.width = pageWidth * this.textList.length;
-		canvas.height = fontSize;
-		canvas.style.display = 'none';
-		document.body.appendChild(canvas);
+		this.drawCanvas.width = pageWidth * this.textList.length;
+		this.drawCanvas.height = fontSize;
 
 		// Re-set after resize
 		ctx.font = font;
@@ -96,40 +110,38 @@ class Matrix {
 			currentOffset += pageWidth;
 		}
 
-		const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+		const imageData = ctx.getImageData(0, 0, this.drawCanvas.width, this.drawCanvas.height);
 		const pixels = imageData.data;
 		const bitmap = [];
 
-		for (let y = 0; y < canvas.height; y++) {
+		for (let y = 0; y < this.drawCanvas.height; y++) {
 			const row = [];
-			for (let x = 0; x < canvas.width; x++) {
-				const index = (y * canvas.width + x) * 4;
+			for (let x = 0; x < this.drawCanvas.width; x++) {
+				const index = (y * this.drawCanvas.width + x) * 4;
 				row.push(pixels[index + 3] > 128 ? 1 : 0);
 			}
 			bitmap.push(row);
 		}
 
-		document.body.removeChild(canvas);
-
 		return bitmap;
 	}
 
 	render() {
-		const ctx = this.canvas.getContext('2d');
+		const ctx = this.timelineCanvas.getContext('2d');
 
-		const width = this.canvas.parentElement.clientWidth;
-		const height = this.canvas.parentElement.clientHeight;
+		const width = this.timelineCanvas.parentElement.clientWidth;
+		const height = this.timelineCanvas.parentElement.clientHeight;
 		const cellSize = height / this.SIGN_ROWS;
 		const dotRadius = cellSize * 0.4;
 
-		this.canvas.width = width;
-		this.canvas.height = height;
+		this.timelineCanvas.width = width;
+		this.timelineCanvas.height = height;
 
-		this.canvas.setAttribute('aria-label', this.textList.join(', '));
-		this.canvas.setAttribute('role', 'img');
+		this.timelineCanvas.setAttribute('aria-label', this.textList.join(', '));
+		this.timelineCanvas.setAttribute('role', 'img');
 
 		ctx.fillStyle = '#000';
-		ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
+		ctx.fillRect(0, 0, this.timelineCanvas.width, this.timelineCanvas.height);
 
 		const startColumn = 1;
 		const startRow = Math.floor((this.SIGN_ROWS - this.GLYPH_ROWS) / 2);
