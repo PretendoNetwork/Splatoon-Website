@@ -37,11 +37,7 @@ export default {
 	--c1: #000000;
 	border: 4px solid #323131;
 	box-shadow: -5px 7px var(--c1), -2px 2px var(--c1), -3px 3px var(--c1), -4px 4px var(--c1), -5px 5px var(--c1);
-	white-space: nowrap;
 	margin: 1em;
-	overflow-x: hidden;
-	-ms-overflow-style: none;  /* Internet Explorer 10+ */
-	scrollbar-width: none;  /* Firefox, Safari 18.2+, Chromium 121+ */
 	width: calc(100% - 2em);
 	height: 60px;
 	box-sizing: border-box;
