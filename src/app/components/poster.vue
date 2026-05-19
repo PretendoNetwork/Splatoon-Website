@@ -43,10 +43,6 @@ export default {
 
 			return mapIDs
 		},
-		getMode(): string | undefined {
-			if (!this.stages) return;
-			return this.isRanked() ? this.stages[0]?.GachiRule : this.stages[0]?.RegularRule;
-		},
 		getGameType(): string {
 			switch (this.gameMode) {
 				case 0:
@@ -77,7 +73,7 @@ export default {
 					{{ $t(`stages.${map}`) }}
 				</span>
 			</h4>
-			<h4 class="mode" :class="getMode()">{{ $t(`modes.${getGameType()}`) }}</h4>
+			<h4 class="mode" :class="getGameType()">{{ $t(`modes.${getGameType()}`) }}</h4>
 		</div>
 		<div class="players">
 			<template v-for="i in 8" :key="i">
