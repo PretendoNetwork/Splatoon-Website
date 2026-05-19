@@ -24,15 +24,15 @@ useHead({
 	}
 })
 
-const { data: stages } = await useFetch<Settings>('/api/stages', { server: true });
-const { data: matches } = await useFetch<Match[]>('/api/matches', { server: true });
-const { data: friends } = await useFetch<FriendInfoWiiU[]>('/api/friends', { server: true });
+const { data: stages, pending: stagesPending } = await useFetch<Settings>('/api/stages', { server: true });
+const { data: matches, pending: matchesPending } = await useFetch<Match[]>('/api/matches', { server: true });
+const { data: friends, pending: friendsPending } = await useFetch<FriendInfoWiiU[] | null>('/api/friends');
 
 const pages = [$t("titles.regular"), $t("titles.ranked"), $t("titles.gatherings"), $t("titles.friends")]
 
 const showSettings = ref(false);
 const showUserPage = ref(false);
-const selectedUser: Ref<FriendInfoWiiU | undefined> = ref(undefined);
+const selectedUser: Ref<FriendInfoWiiU | null> = ref(null);
 
 function parseDate(timestamp: string | object) {
 	let date = new Date(timestamp as string);
@@ -59,7 +59,8 @@ function updateUser(user: FriendInfoWiiU) {
 			</button>
 			<UserSettings v-show="showSettings" @close-modal="showSettings = false"/>
 			<UserProfile v-if="selectedUser" v-show="showUserPage" @close-modal="showUserPage = false" :user="selectedUser"/>
-			<Page :contents="stages" contentsEmptyString="stages.none">
+			<Page :contents="stages" :loading="stagesPending" contentsEmptyString="stages.none">
+
 				<!-- Regular Battles -->
 				<template v-if="stages" v-for="(phase, index) in stages.Phases">
 					<Header :index="index">{{ parseDate(String(phase.Date)) }}</Header>
@@ -67,7 +68,7 @@ function updateUser(user: FriendInfoWiiU) {
 					</Polaroid>
 				</template>
 			</Page>
-			<Page :contents="stages" contentsEmptyString="stages.none">
+			<Page :contents="stages" :loading="stagesPending" contentsEmptyString="stages.none">
 				<!-- Ranked Battles -->
 				<template v-if="stages" v-for="(phase, index) in stages.Phases">
 					<Header :index="index + 1">{{ parseDate(String(phase.Date)) }}</Header>
@@ -75,15 +76,29 @@ function updateUser(user: FriendInfoWiiU) {
 					</Polaroid>
 				</template>
 			</Page>
-			<Page :contents="matches" contentsEmptyString="matches.none">
+			<Page :contents="matches" :loading="matchesPending" contentsEmptyString="matches.none">
 				<!-- Matches -->
 				<template v-if="matches" v-for="match in matches">
 					<Poster :id="match.id" :gameMode="Number(match.game_mode)" :players="match.participants"
 						:stages="stages?.Phases"></Poster>
 				</template>
 			</Page>
-			<!-- Friends -->
-			<Page :contents="friends" contentsEmptyString="friends.none">
+			<Page :contents="friends" :loading="friendsPending" contentsEmptyString="friends.none">
+				<!-- Friends -->
+				 <a class="pretendo" href="http://localhost:3210/account/login?redirect=http://localhost:3000" v-if="!friends">
+					<svg role="img" aria-label="Pretendo" xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 40 40">
+						<g id="logo_type" data-name="logo type" transform="translate(-553 -467)">
+							<g id="logo" transform="translate(553 467)">
+								<g id="XMLID_6_" transform="translate(8.222 1.418)">
+									<path id="XMLID_15_" d="M69.149,28.312c-1.051.553-.129,2.139.922,1.585a12.365,12.365,0,0,1,8.794-.571,10.829,10.829,0,0,1,6.342,4.166c.645,1,2.231.074,1.585-.922C83.308,27.169,74.7,25.436,69.149,28.312Z" transform="translate(-64.246 -23.389)" fill="#fff"></path>
+									<path id="XMLID_14_" d="M82.64,14.608A15.565,15.565,0,0,0,73.5,8.45a17.535,17.535,0,0,0-12.647.9c-1.051.553-.129,2.139.922,1.585,3.411-1.788,7.6-1.714,11.209-.719,3.1.848,6.268,2.544,8.038,5.309C81.681,16.543,83.267,15.622,82.64,14.608Z" transform="translate(-57.476 -7.693)" fill="#fff"></path>
+									<path id="XMLID_9_" d="M55.68,47.8a10.719,10.719,0,0,0-6.71,2.3H45.983A1.336,1.336,0,0,0,44.6,51.376V75.84a1.431,1.431,0,0,0,1.383,1.383h3.023a1.367,1.367,0,0,0,1.309-1.383V68.392A10.993,10.993,0,1,0,55.68,47.8Zm0,17.182a6.213,6.213,0,1,1,6.213-6.213A6.216,6.216,0,0,1,55.68,64.982Z" transform="translate(-44.6 -40.406)" fill="#fff"></path>
+								</g>
+							</g>
+						</g>
+					</svg>
+					<span>{{ $t('sign_in') }}</span>
+				 </a>
 				<template v-if="friends" v-for="friend in friends">
 					<Tag :user="friend" @update-user="updateUser"/>
 				</template>

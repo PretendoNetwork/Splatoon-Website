@@ -72,9 +72,6 @@ export default {
 .online, .tag:hover {
 	filter: brightness(100%);
 }
-.tag:hover {
-	animation: background-slide 20s linear infinite;
-}
 .tag h1 {
     position: relative;
 		font-size: 30px;
@@ -101,5 +98,8 @@ export default {
 /* Background Style Text Overrides */
 .zigzag {
 	color: white;
+}
+.zigzag:hover {
+	animation: background-slide 20s linear infinite;
 }
 </style>

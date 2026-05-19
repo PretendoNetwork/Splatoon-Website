@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { required } from 'zod/mini';
 
 const { t } = useI18n()
 </script>
@@ -8,6 +7,9 @@ const { t } = useI18n()
 export default {
 	props: {
 		contents: {
+			required: true
+		},
+		loading: {
 			required: true
 		},
 		contentsEmptyString: {
@@ -22,8 +24,8 @@ export default {
 
 <template>
   <div class="page">
-		<h1 v-if="contents == undefined" style="color: white">{{ $t('loading') }}</h1>
-		<h1 v-if="contents && Array.isArray(contents) && contents.length == 0" style="color: white">{{ $t(contentsEmptyString) }}</h1>
+		<h1 v-if="loading" style="color: white">{{ $t('loading') }}</h1>
+		<h1 v-if="!loading && contents && Array.isArray(contents) && contents.length == 0" style="color: white">{{ $t(contentsEmptyString) }}</h1>
     <slot></slot>
   </div>
 </template>

@@ -1,9 +1,11 @@
 import type { H3Event } from 'h3'
+import { getCookie, parseCookies } from 'h3'
 import { createChannel, createClient, Metadata } from 'nice-grpc';
 import { FriendsServiceDefinition } from '@pretendonetwork/grpc/friends/v2/friends_service'
 import type { GetUserFriendsDataWiiUResponse } from '@pretendonetwork/grpc/friends/v2/get_user_friend_data_wiiu_rpc'
 import type { FriendInfoWiiU } from '@pretendonetwork/grpc/friends/v2/friend_info'
 import { logger } from '~~/logger';
+import { fetchUserData } from '~~/util';
 
 const config = useRuntimeConfig();
 const { api_key, host, port } = config.grpc.friends;
@@ -15,10 +17,10 @@ BigInt.prototype.toJSON = function () {
   return JSON.rawJSON(this.toString());
 };
 
-async function fetchFriends(): Promise<FriendInfoWiiU[]> {
+async function fetchFriends(pid: number): Promise<FriendInfoWiiU[] | null> {
 	try {
 		let result: GetUserFriendsDataWiiUResponse = await gRPCFriendsClient.getUserFriendsDataWiiU({
-			pid: 1542385105 // TODO: implement auth and rip this out
+			pid
 		}, {
 				metadata: Metadata({
 					'X-API-Key': api_key
@@ -27,16 +29,18 @@ async function fetchFriends(): Promise<FriendInfoWiiU[]> {
 		return result.friends
 	} catch (e) {
 		logger.error(e);
-		return []
+		return null;
 	}
 }
 
-export default cachedEventHandler(async (event) => {
+export default defineEventHandler(async (event) => {
 	logger.debug('Fetching friends');
-  const friends = await fetchFriends();
+	const authToken = getCookie(event, 'access_token');
 
-	return friends;
-}, {
-  maxAge: 0,
-  getKey: (event: H3Event) => event.path
-})
+	if (!authToken) return null;
+	const userData = await fetchUserData(authToken);
+
+	if (!userData) return null;
+  return await fetchFriends(userData.pid);
+});
+
