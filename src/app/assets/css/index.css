@@ -377,6 +377,11 @@ button.settings {
 	margin: 1em auto;
 }
 
+.page > .tag:first-of-type {
+	-webkit-filter: unset;
+	filter: unset;
+}
+
 /* Pattern Blends */
 
 .alpha-blend {

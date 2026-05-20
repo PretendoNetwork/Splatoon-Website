@@ -16,7 +16,7 @@ export default {
 		disabled: {
 			type: Boolean,
 			required: false,
-			default: false
+			default: true
 		}
 	},
 	methods: {
@@ -36,10 +36,6 @@ export default {
 
 <template>
 	<button class="tag TurquoiseOrange alpha-blend zigzag" :class="isOnline() ? 'online' : ''" v-if="user" @click="$emit('update-user', user)" :disabled="disabled">
-		<h1>{{ user.nnaInfo?.principalBasicInfo?.mii?.name }}</h1>
-		<h3>{{ user.nnaInfo?.principalBasicInfo?.nnid }}</h3>
-	</button>
-	<button class="tag TurquoiseOrange bravo-blend zigzag" v-if="user && !disabled" @click="$emit('update-user', user)" :disabled="disabled">
 		<h1>{{ user.nnaInfo?.principalBasicInfo?.mii?.name }}</h1>
 		<h3>{{ user.nnaInfo?.principalBasicInfo?.nnid }}</h3>
 	</button>
