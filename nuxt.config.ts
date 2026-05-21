@@ -61,6 +61,7 @@ export default defineNuxtConfig({
 			format: 'pretty',
 			level: 'warn'
 		},
+		mongoURI: '',
 		postgresURI: '',
 		maxResponse: 12,
 		fileCacheDir: './'

@@ -1,43 +1,41 @@
-import postgres from 'postgres';
+import mongoose from 'mongoose';
 import { logger } from '~~/logger';
-import type { Match } from '~~/types/database';
+import { User } from '~~/models/user';
+import type { HydratedUserDocument } from '~~/types/mongoose/user';
+
 const config = useRuntimeConfig();
+const { mongoURI } = config;
 
-const { postgresURI } = config;
+let connection: mongoose.Connection;
+mongoose.set('strictQuery', true);
 
-let sql: postgres.Sql | undefined = undefined;
+export async function connect(): Promise<void> {
+	connection = mongoose.connection;
+	connection.on('connected', () => {
+		logger.info('MongoDB connected');
+	});
+	connection.on('error', err => logger.error(err, 'Database connection error'));
+	connection.on('close', () => {
+		connection.removeAllListeners();
+	});
 
-async function connectDB() {
-	logger.info('Connecting to database...')
-	try {
-		sql = postgres(postgresURI);
-		logger.success('Database connected!');
-	} catch(e) {
-		logger.fatal('Failed to connect to DB!', e);
-		process.exit(-1);
+	await mongoose.connect(mongoURI);
+}
+
+function verifyConnected(): void {
+	if (!connection) {
+		connect();
 	}
 }
 
-async function fetchMatches(): Promise<Match[]> {
-	if (!sql)
-			await connectDB();
-			if (!sql) return [];
-	try {
-		const result = await sql<Match[]>`
-			SELECT g.id, g.started_time, g.participants,g.owner_pid,s.game_mode,g.flags,s.matchmake_param
-			FROM matchmaking.gatherings g
-			JOIN matchmaking.matchmake_sessions s ON (g.id = s.id)
-			WHERE array_length(g.participants, 1) > 0 and g.registered=true AND s.open_participation = true
-			ORDER BY started_time ASC LIMIT 25`;
+export async function getUserData(pid: number): Promise<HydratedUserDocument | null> {
+	verifyConnected();
 
-	return result;
-	} catch(e) {
-		logger.error(e);
-		return [];
-	}
+	return User.findOne({ pid });
 }
 
-export {
-	fetchMatches,
-	connectDB
+export async function getUsersData(pids: number[]): Promise<HydratedUserDocument[]> {
+	verifyConnected();
+
+	return User.find({ pid: pids });
 }

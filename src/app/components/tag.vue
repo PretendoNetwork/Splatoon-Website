@@ -11,17 +11,22 @@ export default {
 	props: {
 		user: {
 			type: Object as PropType<FriendInfoWiiU>,
-			required: true
+			required: false
+		},
+		theme: {
+			type: String,
+			required: false,
+			default: 'TurquoiseOrange alpha-blend zigzag'
 		},
 		disabled: {
 			type: Boolean,
 			required: false,
-			default: true
+			default: false
 		}
 	},
 	methods: {
 		isOnline(): boolean {
-			if (!this.user.presence?.online)
+			if (!this.user || !this.user.presence?.online)
 					return false;
 
 			const titleID = this.user.presence?.gameKey?.titleId;
@@ -35,14 +40,14 @@ export default {
 </script>
 
 <template>
-	<button class="tag TurquoiseOrange alpha-blend zigzag" :class="isOnline() ? 'online' : ''" v-if="user" @click="$emit('update-user', user)" :disabled="disabled">
-		<h1>{{ user.nnaInfo?.principalBasicInfo?.mii?.name }}</h1>
-		<h3>{{ user.nnaInfo?.principalBasicInfo?.nnid }}</h3>
+	<button class="tag" :class="`${isOnline() ? 'online' : ''} ${theme}`" @click="$emit('update-user', user)" :disabled="disabled">
+		<h1 v-if="user">{{ user.nnaInfo?.principalBasicInfo?.mii?.name }}</h1>
+		<h3 v-if="user">{{ user.nnaInfo?.principalBasicInfo?.nnid }} #{{ user.nnaInfo?.principalBasicInfo?.pid }}</h3>
 	</button>
 </template>
 
 <style scoped>
-@keyframes background-slide {
+@keyframes zig-slide {
   0% {
     background-position-y: 0px;
 	}
@@ -51,10 +56,24 @@ export default {
     background-position-y: 350px;
 	}
 }
+
+@keyframes arrow-slide {
+  0% {
+    background-position-x: 0px;
+		background-position-y: 0px;
+	}
+
+  100% {
+    background-position-x: -350px;
+		background-position-y: 350px;
+	}
+}
+
 .tag {
 	font-family: "Splatoon1";
 	position: relative;
 	background-color: white;
+	color: white;
 	width: 350px;
 	height: 100px;
 	margin: 1ch;
@@ -63,6 +82,7 @@ export default {
 	user-select: none;
 	transition: filter 0.25s, background-position-y 10s;
 	filter: brightness(50%);
+	flex-shrink: none;
 	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
 }
 .online, .tag:hover {
@@ -92,10 +112,11 @@ export default {
     margin: 0;
 }
 /* Background Style Text Overrides */
-.zigzag {
-	color: white;
+.zigzag:hover, .zigzag.animate {
+	animation: zig-slide 20s linear infinite;
 }
-.zigzag:hover {
-	animation: background-slide 20s linear infinite;
+
+.arrows:hover, .arrows.animate {
+	animation: arrow-slide 20s linear infinite;
 }
 </style>

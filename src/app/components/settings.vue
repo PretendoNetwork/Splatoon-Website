@@ -51,7 +51,7 @@ h2 {
   padding: 1em;
   margin: 1em;
   color: white;
-  max-width: 35em;
+  max-width: 50em;
   width: 100%;
   max-height: 35em;
 	rotate: -2deg;

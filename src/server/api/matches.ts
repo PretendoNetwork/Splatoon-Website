@@ -1,6 +1,6 @@
 import type { H3Event } from 'h3'
 import { logger } from '~~/logger';
-import { fetchMatches } from '~~/database';
+import { fetchMatches } from '~~/matchDatabase';
 import { fetchPNIDs } from '~~/util';
 
 export default cachedEventHandler(async (event) => {
