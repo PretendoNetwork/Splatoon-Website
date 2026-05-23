@@ -113,7 +113,7 @@ async function updateTheme(theme: string) {
 				</a>
 				<Tag v-if="myself" :user="myself?.userInfo" :theme="myself?.tagTheme" @click="showEditTag = true"/>
 				<template v-if="friends" v-for="friend in friends">
-					<Tag :user="friend" :theme="friend.tagTheme" @update-user="updateUser"/>
+					<Tag :user="friend" :theme="friend.tagTheme"/>
 				</template>
 			</Page>
 		</div>
