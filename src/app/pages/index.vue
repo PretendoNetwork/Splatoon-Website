@@ -25,9 +25,19 @@ useHead({
 	],
 	bodyAttrs: {
 		class: 'ink Neutral',
-	}
+	},
+	link: [
+		{
+      rel: 'preload',
+      type: 'font/ttf',
+      href: '~/assets/fonts/PixelMplus12-Regular.ttf',
+      as: 'font',
+      crossorigin: ''
+    }
+	]
 })
 
+await preloadComponents('Timeline');
 const { data: stages, pending: stagesPending } = await useFetch<Settings>('/api/stages', { server: true });
 const { data: matches, pending: matchesPending } = await useFetch<Match[]>('/api/matches', { server: true });
 const { data: friends, pending: friendsPending } = await useFetch<Friend[] | null>('/api/friends');
