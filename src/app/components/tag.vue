@@ -40,9 +40,11 @@ export default {
 </script>
 
 <template>
-	<button class="tag" :class="`${isOnline() ? 'online' : ''} ${theme}`" @click="$emit('update-user', user)" :disabled="disabled">
+	<button class="tag" :class="`${isOnline() ? 'online' : ''} ${theme}`" @click="$emit('update-user', user)" :data-pid="user?.nnaInfo?.principalBasicInfo?.pid" :disabled="disabled">
 		<h1 v-if="user">{{ user.nnaInfo?.principalBasicInfo?.mii?.name }}</h1>
-		<h3 v-if="user">{{ user.nnaInfo?.principalBasicInfo?.nnid }} #{{ user.nnaInfo?.principalBasicInfo?.pid }}</h3>
+		<h3 v-if="user">{{ user.nnaInfo?.principalBasicInfo?.nnid }}</h3>
+		<div class="badges">
+		</div>
 	</button>
 </template>
 
@@ -59,8 +61,8 @@ export default {
 
 @keyframes arrow-slide {
   0% {
-    background-position-x: 0px;
-		background-position-y: 0px;
+    background-position-x: 92px;
+		background-position-y: 92px;
 	}
 
   100% {
@@ -74,7 +76,7 @@ export default {
 	position: relative;
 	background-color: white;
 	color: white;
-	width: 350px;
+	width: 325px;
 	height: 100px;
 	margin: 1ch;
 	border: none;
@@ -118,5 +120,11 @@ export default {
 
 .arrows:hover, .arrows.animate {
 	animation: arrow-slide 20s linear infinite;
+}
+
+.badges {
+	position: absolute;
+	right: 1ch;
+	bottom: 0;
 }
 </style>
