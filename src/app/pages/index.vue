@@ -46,7 +46,6 @@ function parseDate(timestamp: string | object) {
 }
 
 function updateUser(user: Friend) {
-	console.log('test', user);
 	selectedUser.value = user;
 	showUserPage.value = true;
 }

@@ -6,7 +6,7 @@ import { User } from '~~/models/user';
 import type { IUser } from '~~/types/mongoose/user';
 
 export default defineEventHandler(async (event) => {
-	console.log('Updating user data');
+	logger.debug('Updating user data');
 	const authToken = getCookie(event, 'access_token');
 	const { class_list } = await readBody(event);
 
