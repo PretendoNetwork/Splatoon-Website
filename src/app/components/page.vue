@@ -1,5 +1,31 @@
+<script setup lang="ts">
+
+const { t } = useI18n()
+</script>
+
+<script lang="ts">
+export default {
+	props: {
+		contents: {
+			required: true
+		},
+		loading: {
+			required: true
+		},
+		contentsEmptyString: {
+			type: String,
+			required: true
+		}
+	},
+	methods: {
+	}
+}
+</script>
+
 <template>
   <div class="page">
+		<h1 v-if="loading" style="color: white">{{ $t('loading') }}</h1>
+		<h1 v-if="!loading && contents && Array.isArray(contents) && contents.length == 0" style="color: white">{{ $t(contentsEmptyString) }}</h1>
     <slot></slot>
   </div>
 </template>

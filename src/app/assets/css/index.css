@@ -21,7 +21,7 @@ html {
 }
 
 body {
-  font-family: "Splatoon1";
+  font-family: "Splatoon1", sans-serif;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -331,20 +331,118 @@ button.settings {
   opacity: 95%;
 }
 
+.pretendo {
+	display: flex;
+	align-items: center;
+	background-color: #673DB6;
+	color: white;
+	font-family: sans-serif;
+	padding: 0;
+	width: min-content;
+	border: none;
+	font-size: large;
+	border-radius: 5px;
+	border-bottom: 2px solid #452978c0;
+	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
+	cursor: pointer;
+	user-select: none;
+	-wevkit-user-select: none;
+	text-decoration: none;
+	transition: border-bottom 0.3s ease, transform 0.3s ease;
+	-webkit-transition: border-bottom 0.3s ease, transform 0.3s ease;
+	-moz-transition: border-bottom 0.3s ease, transform 0.3s ease;
+	-ms-transition: border-bottom 0.3s ease, transform 0.3s ease;
+	-o-transition: border-bottom 0.3s ease, transform 0.3s ease;
+}
+
+.pretendo:active {
+	border-bottom: 1px solid #452978c0;
+	transform: translateY(2px);
+	-webkit-transform: translateY(2px);
+	-moz-transform: translateY(2px);
+	-ms-transform: translateY(2px);
+	-o-transform: translateY(2px);
+}
+
+.pretendo > svg {
+	border-right: 1px solid #452978c0;
+	padding: 0.25ch;
+}
+
+.pretendo > span {
+	width: 120px;
+}
+
+.page > .pretendo {
+	margin: 1em auto;
+}
+
+.page > .tag:first-of-type {
+	-webkit-filter: unset;
+	filter: unset;
+}
+
+.color-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  overflow-y: scroll;
+}
+
+.color-blob {
+  width: 3em;
+  height: 3em;
+  position: relative;
+  border-radius: 100%;
+  margin: 0.5em;
+  background-image: conic-gradient(var(--c1) 33%, var(--c2) 33%, var(--c2) 66%, var(--c3) 66%);
+	animation: morph-2 3s linear infinite;
+  box-shadow:
+    inset 2px 2px 20px 0px rgb(248 248 248 / 82%),
+    5px -10px 18px 4px rgb(255 255 255 / 22%) inset;
+  opacity: 95%;
+	filter: saturate(2);
+	cursor: pointer;
+}
+
+.color-blob:nth-of-type(2n) {
+	rotate: 125deg;
+}
+
+.color-blob:nth-of-type(2n)::after {
+	rotate: -125deg;
+}
+
+.color-blob.selected {
+	filter: saturate(1);
+}
+
+.color-blob.selected::after {
+	content: "✓";
+	display: flex;
+	justify-content: center;
+	color: black;
+	font-size: 1.5em;
+	position: absolute;
+	width: 100%;
+	height: 100%;
+}
+
 /* Pattern Blends */
 
 .alpha-blend {
-  --c2: color-mix(in srgb, var(--c1) 75%, black);
+  --c2: color-mix(in srgb, var(--c1) 75%, black) !important;
 }
 
 .bravo-blend {
-  --c1: color-mix(in srgb, var(--c2) 75%, black);
+  --c1: color-mix(in srgb, var(--c2) 75%, black) !important;
 }
 
 /* Stripe Background Pattern */
 .stripes {
   --size: 15px;
-  background-color: var(--c1);
+  background-color: var(--c1) !important;
   background-image: repeating-linear-gradient(
     130deg,
     transparent,
@@ -434,6 +532,16 @@ button.settings {
       calc(var(--size) / 2) calc(var(--size) / 2) / var(--size) var(--size),
     linear-gradient(90deg, var(--c1) 50%, var(--c2) 0) 0 0 /
       calc(2 * var(--size));
+}
+
+/* Zigzag Background Pattern */
+.zigzag {
+	background-color: #e5e5f7;
+	opacity: 0.8;
+	background-image:  linear-gradient(135deg, var(--c1) 25%, transparent 25%), linear-gradient(225deg, var(--c1) 25%, transparent 25%), linear-gradient(45deg, var(--c1) 25%, transparent 25%), linear-gradient(315deg, var(--c1) 25%, var(--c2) 25%);
+	background-position: 29px 0, 29px 0, 0 0, 0 0;
+	background-size: 58px 58px;
+	background-repeat: repeat;
 }
 
 /* Color Patterns */

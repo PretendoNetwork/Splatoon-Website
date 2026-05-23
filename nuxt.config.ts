@@ -50,14 +50,22 @@ export default defineNuxtConfig({
 				api_key: '',
 				host: '',
 				port: ''
+			},
+			friends: {
+				api_key: '',
+				host: '',
+				port: ''
 			}
 		},
 		log: {
 			format: 'pretty',
 			level: 'warn'
 		},
+		mongoURI: '',
 		postgresURI: '',
 		maxResponse: 12,
-		fileCacheDir: './'
+		fileCacheDir: './',
+		loginDomain: '',
+		hostname: '',
 	}
 });

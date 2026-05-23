@@ -18,6 +18,9 @@ Create a .env with the following values:
 | PN_SPLATOON_WEBSITE_GRPC_ACCOUNT_API_KEY | API Key to connect to the account grpc server                                              |
 | PN_SPLATOON_WEBSITE_GRPC_ACCOUNT_PORT    | Port to connect to the account grpc server                                                 |
 | PN_SPLATOON_WEBSITE_GRPC_ACCOUNT_HOST    | Host to connect to the account grpc server                                                 |
+| PN_SPLATOON_WEBSITE_MONGO_URI            | MongoDB URI for storage of user data                                                       |
+| PN_SPLATOON_WEBSITE_LOGIN_DOMAIN         | Website for logging in (e.g., https://pretendo.network)                                    |
+| PN_SPLATOON_WEBSITE_HOSTNAME             | Domain website is hosted on to redirect back to (e.g., https://splatoon.pretendo.network)  |
 
 ## Running locally for development
 
