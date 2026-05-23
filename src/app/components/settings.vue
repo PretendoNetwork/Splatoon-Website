@@ -13,6 +13,22 @@ export default {
 		height: {
 			type: String,
 			required: false
+		},
+		minWidth: {
+			type: String,
+			required: false
+		},
+		minHeight: {
+			type: String,
+			required: false
+		},
+		maxWidth: {
+			type: String,
+			required: false
+		},
+		maxHeight: {
+			type: String,
+			required: false
 		}
 	}
 }
@@ -20,7 +36,7 @@ export default {
 
 <template>
   <div class="settings-overlay" @click.self="$emit('close-modal')">
-    <div class="settings-window" :class="theme != '' ? `${theme} theme` : ''" :style="`width: ${width};height: ${height}`">
+    <div class="settings-window" :class="theme != '' ? `${theme} theme` : ''" :style="`width: ${width};height: ${height};min-width: ${minWidth};min-height: ${minHeight};max-width: ${maxWidth};max-height: ${maxHeight};`">
       <slot/>
     </div>
   </div>

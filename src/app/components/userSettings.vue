@@ -57,7 +57,7 @@ export default {
 </script>
 
 <template>
-  <Settings width="35vw">
+  <Settings minWidth="300px" width="35vw">
 		<h2>Theme</h2>
 		<div class="color-wrapper">
 			<template v-for="theme in themes">
