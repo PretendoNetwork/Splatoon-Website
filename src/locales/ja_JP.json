@@ -48,6 +48,13 @@
 	"friends": {
 		"none": "(ja_JP) No Friends"
 	},
+	"tags": {
+		"stock": "(ja_JP) Stock Patterns",
+		"stripes": "(ja_JP) Stripes",
+		"arrows": "(ja_JP) Arrows",
+		"ink": "(ja_JP) Ink",
+		"zigzag": "(ja_JP) Zig Zag"
+	},
 	"weapons": {
 		"100": "(ja_JP) Sploosh-o-matic",
 		"101": "(ja_JP) Neo Sploosh-o-matic",

@@ -15,6 +15,8 @@ import type { Myself } from '~~/types/myself';
 import '~/assets/css/index.css'
 
 const { te, t, tm, locale } = useI18n();
+const config = useRuntimeConfig();
+const { loginDomain, hostname } = config;
 
 useHead({
 	title: $t("meta.title"),
@@ -96,7 +98,7 @@ async function updateTheme(theme: string) {
 			</Page>
 			<Page :contents="friends" :loading="friendsPending" contentsEmptyString="friends.none">
 				<!-- Friends -->
-				<a class="pretendo" href="http://localhost:3210/account/login?redirect=http://localhost:3000" v-if="!friends">
+				<a class="pretendo" :href="`${loginDomain}/account/login?redirect=${hostname}`" v-if="!friends">
 					<svg role="img" aria-label="Pretendo" xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 40 40">
 						<g id="logo_type" data-name="logo type" transform="translate(-553 -467)">
 							<g id="logo" transform="translate(553 467)">

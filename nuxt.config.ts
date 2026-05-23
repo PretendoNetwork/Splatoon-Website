@@ -64,6 +64,8 @@ export default defineNuxtConfig({
 		mongoURI: '',
 		postgresURI: '',
 		maxResponse: 12,
-		fileCacheDir: './'
+		fileCacheDir: './',
+		loginDomain: '',
+		hostname: '',
 	}
 });

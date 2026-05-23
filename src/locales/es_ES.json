@@ -48,6 +48,13 @@
 	"friends": {
 		"none": "(es_ES) No Friends"
 	},
+	"tags": {
+		"stock": "(es_ES) Stock Patterns",
+		"stripes": "(es_ES) Stripes",
+		"arrows": "(es_ES) Arrows",
+		"ink": "(es_ES) Ink",
+		"zigzag": "(es_ES) Zig Zag"
+	},
 	"weapons": {
 		"100": "(es_ES) Sploosh-o-matic",
 		"101": "(es_ES) Neo Sploosh-o-matic",

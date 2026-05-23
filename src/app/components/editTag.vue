@@ -1,3 +1,7 @@
+<script setup lang="ts">
+const { t } = useI18n()
+</script>
+
 <script lang="ts">
 import Settings from './settings.vue';
 import Tag from './tag.vue';
@@ -32,7 +36,7 @@ export default {
 	},
 	data() {
 		return {
-			theme: 'PinkGreen arrows',
+			theme: '',
 			colors: [
 				'PinkGreen',
 				'PinkBlue',
@@ -67,10 +71,10 @@ export default {
 		<Tag :user="user.userInfo" :theme="`online animate ${theme}`"/>
 		<div class="editor">
 			<details open>
-				<summary>Stock Patterns</summary>
+				<summary>{{ $t('tags.stock') }}</summary>
 					<template v-for="theme in themes">
 						<details open>
-							<summary>{{ theme }}</summary>
+							<summary>{{ $t(`tags.${theme}`) }}</summary>
 							<div class="pattern-picker">
 								<template v-for="color in colors">
 									<Tag :theme="`online alpha-blend ${color} ${theme}`" @click.native="updateTheme(`alpha-blend ${color} ${theme}`)"/>
