@@ -1,14 +1,14 @@
 <script setup lang="ts">
-import type { FriendInfoWiiU } from '@pretendonetwork/grpc/friends/v2/friend_info';
-import Polaroid from '../components/polaroid.vue';
-import Timeline from '../components/timeline.vue';
-import Page from '../components/page.vue';
-import Header from '../components/header.vue';
-import Poster from '../components/poster.vue';
-import UserSettings from '../components/userSettings.vue';
-import UserProfile from '../components/userProfile.vue';
-import EditTag from '../components/editTag.vue';
-import Tag from '../components/tag.vue'
+import type { Friend } from '~~/types/friend';
+import Polaroid from '~~/app/components/polaroid.vue';
+import Timeline from '~~/app/components/timeline.vue';
+import Page from '~~/app/components/page.vue';
+import Header from '~~/app/components/header.vue';
+import Poster from '~~/app/components/poster.vue';
+import UserSettings from '~~/app/components/userSettings.vue';
+import UserProfile from '~~/app/components/userProfile.vue';
+import EditTag from '~~/app/components/editTag.vue';
+import Tag from '~~/app/components/tag.vue'
 import type { Settings } from '~~/types/settings';
 import type { Match } from '~~/types/database';
 import type { Myself } from '~~/types/myself';
@@ -28,7 +28,7 @@ useHead({
 
 const { data: stages, pending: stagesPending } = await useFetch<Settings>('/api/stages', { server: true });
 const { data: matches, pending: matchesPending } = await useFetch<Match[]>('/api/matches', { server: true });
-const { data: friends, pending: friendsPending } = await useFetch<FriendInfoWiiU[] | null>('/api/friends');
+const { data: friends, pending: friendsPending } = await useFetch<Friend[] | null>('/api/friends');
 const { data: myself, refresh: refreshMyself } = await useFetch<Myself>('/api/myself');
 
 const pages = [$t("titles.regular"), $t("titles.ranked"), $t("titles.gatherings"), $t("titles.friends")]
@@ -36,14 +36,14 @@ const pages = [$t("titles.regular"), $t("titles.ranked"), $t("titles.gatherings"
 const showSettings = ref(false);
 const showUserPage = ref(false);
 const showEditTag = ref(false);
-const selectedUser: Ref<FriendInfoWiiU | null> = ref(null);
+const selectedUser: Ref<Friend | null> = ref(null);
 
 function parseDate(timestamp: string | object) {
 	let date = new Date(timestamp as string);
 	return date.toLocaleString(locale.value, { hour: 'numeric' });
 }
 
-function updateUser(user: FriendInfoWiiU) {
+function updateUser(user: Friend) {
 	console.log('test', user);
 	selectedUser.value = user;
 	showUserPage.value = true;
@@ -112,7 +112,7 @@ async function updateTheme(theme: string) {
 				</a>
 				<Tag v-if="myself" :user="myself?.userInfo" :theme="myself?.tagTheme" @click="showEditTag = true"/>
 				<template v-if="friends" v-for="friend in friends">
-					<Tag :user="friend" @update-user="updateUser"/>
+					<Tag :user="friend" :theme="friend.tagTheme" @update-user="updateUser"/>
 				</template>
 			</Page>
 		</div>

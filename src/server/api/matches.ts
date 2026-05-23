@@ -4,7 +4,7 @@ import { fetchMatches } from '~~/matchDatabase';
 import { fetchPNIDs } from '~~/util';
 
 export default cachedEventHandler(async (event) => {
-	logger.info('Fetching matches');
+	logger.debug('Fetching matches');
   const matches = await fetchMatches();
 	const pids = matches.map(m => m.participants).flat(1);
 	const pnids = await fetchPNIDs(pids)
