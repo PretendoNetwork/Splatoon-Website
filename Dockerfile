@@ -28,7 +28,7 @@ RUN --mount=type=bind,source=package.json,target=package.json \
 
 COPY . .
 
-RUN npm run build
+RUN npm run prepare && npm run build
 
 
 # * Running the final application
