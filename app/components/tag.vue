@@ -1,29 +1,16 @@
 <script setup lang="ts">
 import type { FriendInfoWiiU } from '@pretendonetwork/grpc/friends/v2/friend_info';
+const { user = undefined, theme = 'TurquoiseOrange alpha-blend zigzag', disabled = false } = defineProps<{
+	user?: FriendInfoWiiU;
+	theme?: string;
+	disabled?: boolean;
+}>();
 
 const SPLATOON_TITLE_IDS = [
 	1407375153522944, // USA
 	1407375153523200, // EUR
 	1407375153441536 // JPN
 ];
-
-const props = defineProps({
-	user: {
-		type: Object as PropType<FriendInfoWiiU>,
-		required: false
-	},
-	theme: {
-		type: String,
-		required: false,
-		default: 'TurquoiseOrange alpha-blend zigzag'
-	},
-	disabled: {
-		type: Boolean,
-		required: false,
-		default: false
-	}
-});
-const { user, theme, disabled } = props;
 
 function isOnline(): boolean {
 	if (!user || !user.presence?.online) {

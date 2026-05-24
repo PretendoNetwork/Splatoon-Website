@@ -1,24 +1,5 @@
 <script setup lang="ts">
-import Settings from './settings.vue';
-
-const themes = [
-	'PinkGreen',
-	'PinkBlue',
-	'PinkOrange',
-	'OrangeBlue',
-	'GreenPurple',
-	'TurquoiseOrange',
-	'LightBlueDarkBlue',
-	'LightBlueYellow',
-	'BlueLime',
-	'YellowLilac',
-	'GreenMazenta',
-	'LumigreenPurple',
-	'LightgreenBlue',
-	'SodaPink',
-	'GreenOrange',
-	'DarkblueYellow'
-];
+import { themes } from '~~/shared/utils/constants';
 
 function updateColor(theme: string) {
 	if (import.meta.client) {
@@ -65,7 +46,10 @@ loadTheme();
   >
     <h2>Theme</h2>
     <div class="color-wrapper">
-      <template v-for="theme in themes">
+      <template
+        v-for="theme in themes"
+        :key="theme"
+      >
         <div
           class="color-blob"
           :class="theme"

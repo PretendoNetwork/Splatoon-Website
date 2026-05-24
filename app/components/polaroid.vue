@@ -1,22 +1,10 @@
 <script setup lang="ts">
 const { t } = useI18n();
-
-const props = defineProps({
-	mapId: {
-		type: Number,
-		required: true
-	},
-	gameMode: {
-		type: String,
-		required: false
-	},
-	small: {
-		type: Boolean,
-		required: false,
-		default: false
-	}
-});
-const { mapId, gameMode, small } = props;
+const { mapId, gameMode, small = false } = defineProps<{
+	mapId: number;
+	gameMode: string;
+	small?: boolean;
+}>();
 </script>
 
 <template>
@@ -32,9 +20,9 @@ const { mapId, gameMode, small } = props;
       v-if="gameMode"
       :class="gameMode"
     >
-      {{ $t(`modes.${gameMode}`) }}
+      {{ t(`modes.${gameMode}`) }}
     </h4>
-    <h3>{{ $t(`stages.${mapId}`) }}</h3>
+    <h3>{{ t(`stages.${mapId}`) }}</h3>
   </div>
 </template>
 

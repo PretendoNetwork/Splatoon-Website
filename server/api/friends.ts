@@ -1,6 +1,15 @@
 import { getCookie } from 'h3';
 
-BigInt.prototype.toJSON = function () {
+declare global {
+	interface BigInt {
+		toJSON: any;
+	}
+	interface JSON {
+		rawJSON: any;
+	}
+}
+
+BigInt.prototype.toJSON = function (): string {
 	return JSON.rawJSON(this.toString());
 };
 

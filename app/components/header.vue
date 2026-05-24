@@ -1,24 +1,14 @@
 <script setup lang="ts">
-const { t } = useI18n();
+const { index, size = 'large' } = defineProps<{
+	index: number;
+	size?: string;
+}>();
 
-const props = defineProps({
-	index: {
-		type: Number,
-		required: true
-	},
-	size: {
-		type: String,
-		required: false,
-		default: 'large'
-	}
-});
-const { index, size } = props;
-
-function headerDirection(index: number): String {
+function headerDirection(index: number): string {
 	return index % 2 == 0 ? 'left' : 'right';
 }
 
-function headerBlend(index: number): String {
+function headerBlend(index: number): string {
 	return index % 2 == 0 ? 'alpha-blend' : 'bravo-blend';
 }
 </script>
@@ -26,7 +16,7 @@ function headerBlend(index: number): String {
 <template>
   <header
     class="stripes"
-    :class="headerDirection(index), headerBlend(index)"
+    :class="`${headerDirection(index)} ${headerBlend(index)}`"
   >
     <h1 v-if="size == 'large'">
       <slot />

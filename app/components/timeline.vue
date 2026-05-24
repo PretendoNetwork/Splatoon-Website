@@ -1,11 +1,7 @@
 <script setup lang="ts">
-const props = defineProps({
-	pages: {
-		type: Array,
-		required: true
-	}
-});
-const { pages } = props;
+const { pages } = defineProps<{
+	pages: string[];
+}>();
 
 function loadText() {
 	if (!document.fonts.check('10px "PixelMplus12-Regular"')) {
@@ -16,8 +12,8 @@ function loadText() {
 }
 
 if (import.meta.browser) {
-	window.matrix = new Matrix();
-	loadText();
+	// window.matrix = new Matrix();
+	// loadText();
 }
 
 declare global {

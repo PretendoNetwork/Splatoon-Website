@@ -2,8 +2,9 @@ import fs from 'node:fs';
 import tls from 'tls';
 import * as xml2js from 'xml2js';
 import { decryptWiiU } from '@pretendonetwork/boss-crypto';
-import { BYAML } from '@pretendonetwork/nintendo-files';
+import * as pkg from '@pretendonetwork/nintendo-files';
 import type { H3Event } from 'h3';
+const { BYAML } = pkg;
 const config = useRuntimeConfig();
 
 const { boss, maxResponse, fileCacheDir } = config;

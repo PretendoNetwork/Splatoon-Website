@@ -1,14 +1,15 @@
 <script setup lang="ts">
 import '~/assets/css/index.css';
 
-const { locale } = useI18n();
+const { t, locale } = useI18n();
+const nuxtApp = useNuxtApp();
 const config = useRuntimeConfig();
 const { loginDomain, hostname } = config;
 
 useHead({
-	title: $t('meta.title'),
+	title: t('meta.title'),
 	meta: [
-		{ name: 'description', content: $t('meta.description') }
+		{ name: 'description', content: t('meta.description') }
 	],
 	bodyAttrs: {
 		class: 'ink Neutral'
@@ -30,7 +31,7 @@ const { data: matches, pending: matchesPending } = await useFetch<Match[]>('/api
 const { data: friends, pending: friendsPending } = await useFetch<Friend[] | null>('/api/friends');
 const { data: myself, refresh: refreshMyself } = await useFetch<Myself>('/api/myself');
 
-const pages = [$t('titles.regular'), $t('titles.ranked'), $t('titles.gatherings'), $t('titles.friends')];
+const pages = [t('titles.regular'), t('titles.ranked'), t('titles.gatherings'), t('titles.friends')];
 
 const showSettings = ref(false);
 const showEditTag = ref(false);
@@ -40,7 +41,7 @@ function parseDate(timestamp: string | object) {
 	return date.toLocaleString(locale.value, { hour: 'numeric' });
 }
 
-async function updateTheme(theme: string) {
+async function updateTheme() {
 	if (!myself.value) {
 		return;
 	}
@@ -75,13 +76,13 @@ async function updateTheme(theme: string) {
       </button>
       <UserSettings
         v-show="showSettings"
-        @close-modal="showSettings = false"
+        @close="showSettings = false"
       />
       <EditTag
         v-show="showEditTag"
         v-if="myself"
         :user="myself"
-        @close-modal="showEditTag = false"
+        @close="showEditTag = false"
         @update-theme="updateTheme"
       />
       <Page
@@ -93,6 +94,7 @@ async function updateTheme(theme: string) {
         <template
           v-for="(phase, index) in stages.Phases"
           v-if="stages"
+          :key="phase"
         >
           <Header
             :index="index"
@@ -116,6 +118,7 @@ async function updateTheme(theme: string) {
         <template
           v-for="(phase, index) in stages.Phases"
           v-if="stages"
+          :key="phase"
         >
           <Header
             :index="index + 1"
@@ -139,6 +142,7 @@ async function updateTheme(theme: string) {
         <template
           v-for="match in matches"
           v-if="matches"
+          :key="match"
         >
           <Poster
             :id="match.id"
@@ -213,6 +217,7 @@ async function updateTheme(theme: string) {
         <template
           v-for="friend in friends"
           v-if="friends"
+          :key="friend"
         >
           <Tag
             :user="friend"

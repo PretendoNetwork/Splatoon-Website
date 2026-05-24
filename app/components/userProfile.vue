@@ -1,16 +1,9 @@
 <script setup lang="ts">
-import Settings from './settings.vue';
-import PlayingCard from './playingCard.vue';
 import type { FriendInfoWiiU } from '@pretendonetwork/grpc/friends/v2/friend_info';
 
-const props = defineProps({
-	user: {
-		type: Object as PropType<FriendInfoWiiU>,
-		required: true
-	}
-});
-const { user } = props;
-
+const { user } = defineProps<{
+	user: FriendInfoWiiU;
+}>();
 </script>
 
 <template>

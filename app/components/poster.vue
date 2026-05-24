@@ -1,26 +1,13 @@
 <script setup lang="ts">
+const { id, gameMode, players, stages = [] } = defineProps<{
+	id: string;
+	gameMode: number;
+	players: [number];
+	stages?: Phase[];
+}>();
+
 const RANKED = 1;
 const SQUAD = 4;
-
-const props = defineProps({
-	id: {
-		type: String,
-		required: true
-	},
-	gameMode: {
-		type: Number,
-		required: true
-	},
-	players: {
-		type: Array,
-		required: true
-	},
-	stages: {
-		type: Array as PropType<Phase[]>,
-		required: false
-	}
-});
-const { id, gameMode, players, stages } = props;
 
 function isRanked(): boolean {
 	switch (gameMode) {
@@ -73,11 +60,15 @@ function getGameType(): string {
       <div class="img-wrapper scotch-tape corners">
         <img
           v-for="map in getMaps()"
+          :key="map"
           :src="`/images/stages/${map}.webp`"
         >
       </div>
       <h4 class="map stage-container">
-        <span v-for="map in getMaps()">
+        <span
+          v-for="map in getMaps()"
+          :key="map"
+        >
           {{ $t(`stages.${map}`) }}
         </span>
       </h4>

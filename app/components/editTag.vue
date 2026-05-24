@@ -1,33 +1,14 @@
 <script setup lang="ts">
+import { themes } from '~~/shared/utils/constants';
 const { t } = useI18n();
-
-const props = defineProps({
-	user: {
-		type: Object as PropType<Myself>,
-		required: true
-	}
-});
-const { user } = props;
-const theme = ref('');
-const colors = [
-	'PinkGreen',
-	'PinkBlue',
-	'PinkOrange',
-	'OrangeBlue',
-	'GreenPurple',
-	'TurquoiseOrange',
-	'LightBlueDarkBlue',
-	'LightBlueYellow',
-	'BlueLime',
-	'YellowLilac',
-	'GreenMazenta',
-	'LumigreenPurple',
-	'LightgreenBlue',
-	'SodaPink',
-	'GreenOrange',
-	'DarkblueYellow'
-];
-const themes = [
+const { user } = defineProps<{
+	user: Myself;
+}>();
+const emit = defineEmits<{
+	updateTheme: [theme: string];
+}>();
+const theme = ref(user.tagTheme);
+const patterns = [
 	'stripes',
 	'arrows',
 	'ink',
@@ -38,10 +19,9 @@ async function updateTheme(newTheme: string) {
 	if (theme.value == newTheme) {
 		return;
 	}
-
+	emit('updateTheme', newTheme);
 	if (import.meta.client) {
 		theme.value = newTheme;
-		user.tagTheme = newTheme;
 		await $fetch('/api/user', {
 			method: 'POST',
 			body: {
@@ -60,19 +40,25 @@ async function updateTheme(newTheme: string) {
     />
     <div class="editor">
       <details open>
-        <summary>{{ $t('tags.stock') }}</summary>
-        <template v-for="theme in themes">
+        <summary>{{ t('tags.stock') }}</summary>
+        <template
+          v-for="pattern in patterns"
+          :key="pattern"
+        >
           <details open>
-            <summary>{{ $t(`tags.${theme}`) }}</summary>
+            <summary>{{ t(`tags.${pattern}`) }}</summary>
             <div class="pattern-picker">
-              <template v-for="color in colors">
+              <template
+                v-for="color in themes"
+                :key="color"
+              >
                 <Tag
-                  :theme="`online alpha-blend ${color} ${theme}`"
-                  @click.native="updateTheme(`alpha-blend ${color} ${theme}`)"
+                  :theme="`online alpha-blend ${color} ${pattern}`"
+                  @click="updateTheme(`alpha-blend ${color} ${pattern}`)"
                 />
                 <Tag
-                  :theme="`online bravo-blend ${color} ${theme}`"
-                  @click.native="updateTheme(`bravo-blend ${color} ${theme}`)"
+                  :theme="`online bravo-blend ${color} ${pattern}`"
+                  @click="updateTheme(`bravo-blend ${color} ${pattern}`)"
                 />
               </template>
             </div>

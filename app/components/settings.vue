@@ -1,42 +1,23 @@
 <script setup lang="ts">
-const props = defineProps({
-	theme: {
-		type: String,
-		required: false,
-		default: 'arrows Neutral'
-	},
-	width: {
-		type: String,
-		required: false
-	},
-	height: {
-		type: String,
-		required: false
-	},
-	minWidth: {
-		type: String,
-		required: false
-	},
-	minHeight: {
-		type: String,
-		required: false
-	},
-	maxWidth: {
-		type: String,
-		required: false
-	},
-	maxHeight: {
-		type: String,
-		required: false
-	}
-});
-const { theme, width, height, minWidth, minHeight, maxWidth, maxHeight } = props;
+const { theme = 'arrows Neutral', width = '', height = '', minWidth = '', minHeight = '', maxWidth = '', maxHeight = '' } = defineProps<{
+	theme?: string;
+	width?: string;
+	height?: string;
+	minWidth?: string;
+	minHeight?: string;
+	maxWidth?: string;
+	maxHeight?: string;
+}>();
+
+const emit = defineEmits<{
+	close: [];
+}>();
 </script>
 
 <template>
   <div
     class="settings-overlay"
-    @click.self="$emit('close-modal')"
+    @click.self="emit('close')"
   >
     <div
       class="settings-window"

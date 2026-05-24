@@ -1,19 +1,10 @@
 <script setup lang="ts">
 const { t } = useI18n();
-
-const props = defineProps({
-	contents: {
-		required: true
-	},
-	loading: {
-		required: true
-	},
-	contentsEmptyString: {
-		type: String,
-		required: true
-	}
-});
-const { contents, loading, contentsEmptyString } = props;
+const { contents, loading, contentsEmptyString } = defineProps<{
+	contents: any;
+	loading: boolean;
+	contentsEmptyString: string;
+}>();
 
 </script>
 
@@ -23,13 +14,13 @@ const { contents, loading, contentsEmptyString } = props;
       v-if="loading"
       style="color: white"
     >
-      {{ $t('loading') }}
+      {{ t('loading') }}
     </h1>
     <h1
       v-if="!loading && contents && Array.isArray(contents) && contents.length == 0"
       style="color: white"
     >
-      {{ $t(contentsEmptyString) }}
+      {{ t(contentsEmptyString) }}
     </h1>
     <slot />
   </div>
