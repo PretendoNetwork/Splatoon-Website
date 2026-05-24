@@ -1,24 +1,27 @@
-<script>
-export default {
-  props: {
-    pages: {
-      type: Array,
-      required: true,
-    }
-  },
-	methods: {
-		loadText() {
-			if(!document.fonts.check('10px "PixelMplus12-Regular"'))
-				window.setTimeout(this.loadText, 100);
-			else
-				window.matrix.setText(this.pages);
-		}
-	},
-	created() {
-		if (import.meta.browser) {
-			window.matrix = new Matrix();
-			this.loadText();
-		}
+<script setup lang="ts">
+const props = defineProps({
+  pages: {
+		type: Array,
+		required: true,
+	}
+});
+const { pages } = props;
+
+function loadText() {
+	if(!document.fonts.check('10px "PixelMplus12-Regular"'))
+		window.setTimeout(loadText, 100);
+	else
+		window.matrix.setText(pages);
+}
+
+if (import.meta.browser) {
+	window.matrix = new Matrix();
+	loadText();
+}
+
+declare global {
+	interface Window {
+			matrix: any;
 	}
 }
 </script>

@@ -1,48 +1,45 @@
-<script lang="ts">
-export default {
-	props: {
-		index: {
-			type: Number,
-			required: true
-		},
-		title: {
-			type: String,
-			required: true
-		},
-		level: {
-			type: Number,
-			required: false
-		},
-		rank: {
-			type: String,
-			required: false
-		},
-		icon: {
-			type: String,
-			required: true
-		}
+<script setup lang="ts">
+const { t } = useI18n();
+
+const props = defineProps({
+  index: {
+		type: Number,
+		required: true
 	},
-	data() {
-		return {
-			layer: 999999
-		}
+	title: {
+		type: String,
+		required: true
 	},
-	methods: {
-		shuffleCards(event: any) {
-			if (process.client) {
-				const cardList = event.target.closest('.playing-card');
-				if (!cardList) return;
-				let currentIndex = Number(cardList.style.zIndex);
-				cardList.classList.add('is-animated');
-				cardList.style.zIndex = `${currentIndex - 25}`;
-				cardList.addEventListener("animationend", (event: any) => {
-					cardList.classList.remove('is-animated');
-				});
-			}
+	level: {
+		type: Number,
+		required: false
+	},
+	rank: {
+		type: String,
+		required: false
+	},
+	icon: {
+		type: String,
+		required: true
+	}
+});
+const { index, title, level, rank, icon } = props;
+const layer = ref(999999);
+
+function shuffleCards(event: any) {
+		if (import.meta.client) {
+			const cardList = event.target.closest('.playing-card');
+			if (!cardList) return;
+			let currentIndex = Number(cardList.style.zIndex);
+			cardList.classList.add('is-animated');
+			cardList.style.zIndex = `${currentIndex - 25}`;
+			cardList.addEventListener("animationend", (event: any) => {
+				cardList.classList.remove('is-animated');
+			});
 		}
 	}
-}
 </script>
+
 <template>
 		<div class="playing-card" :data-card="index" @click="shuffleCards($event)" :style="`z-index: ${layer - index};`">
 		<div class="header">

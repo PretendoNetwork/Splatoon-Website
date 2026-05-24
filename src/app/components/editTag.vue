@@ -1,67 +1,54 @@
 <script setup lang="ts">
-const { t } = useI18n()
-</script>
-
-<script lang="ts">
+const { t } = useI18n();
 import Settings from './settings.vue';
 import Tag from './tag.vue';
 import type { Myself } from '~~/types/myself';
 
-export default {
-	props: {
-		user: {
-			type: Object as PropType<Myself>,
-			required: true
-		}
-	},
-	methods: {
-		async updateTheme(theme: string) {
-			if (this.theme == theme) return;
-			this.$emit('update-theme', this.theme)
+const props = defineProps({
+  user: {
+		type: Object as PropType<Myself>,
+		required: true
+	}
+});
+const { user } = props;
+const theme = ref('');
+const colors = [
+	'PinkGreen',
+	'PinkBlue',
+	'PinkOrange',
+	'OrangeBlue',
+	'GreenPurple',
+	'TurquoiseOrange',
+	'LightBlueDarkBlue',
+	'LightBlueYellow',
+	'BlueLime',
+	'YellowLilac',
+	'GreenMazenta',
+	'LumigreenPurple',
+	'LightgreenBlue',
+	'SodaPink',
+	'GreenOrange',
+	'DarkblueYellow'
+];
+const themes = [
+	'stripes',
+	'arrows',
+	'ink',
+	'zigzag'
+];
 
-			if (import.meta.client) {
-				this.theme = theme;
-				this.user.tagTheme == theme;
-				await $fetch('/api/user', {
-					method: 'POST',
-					body: {
-						class_list: theme
-					},
-				})
-			}
-		}
-	},
-	created() {
-		this.theme = this.user.tagTheme;
-	},
-	data() {
-		return {
-			theme: '',
-			colors: [
-				'PinkGreen',
-				'PinkBlue',
-				'PinkOrange',
-				'OrangeBlue',
-				'GreenPurple',
-				'TurquoiseOrange',
-				'LightBlueDarkBlue',
-				'LightBlueYellow',
-				'BlueLime',
-				'YellowLilac',
-				'GreenMazenta',
-				'LumigreenPurple',
-				'LightgreenBlue',
-				'SodaPink',
-				'GreenOrange',
-				'DarkblueYellow'
-			],
-			themes: [
-				'stripes',
-				'arrows',
-				'ink',
-				'zigzag'
-			]
-		};
+async function updateTheme(newTheme: string) {
+	if (theme.value == newTheme) return;
+
+	if (import.meta.client) {
+		theme.value = newTheme;
+		user.tagTheme = newTheme;
+		await $fetch('/api/user', {
+			method: 'POST',
+			body: {
+				class_list: newTheme
+			},
+		})
 	}
 }
 </script>

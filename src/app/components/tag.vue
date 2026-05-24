@@ -1,4 +1,4 @@
-<script lang="ts">
+<script setup lang="ts">
 import type { FriendInfoWiiU } from '@pretendonetwork/grpc/friends/v2/friend_info';
 
 const SPLATOON_TITLE_IDS = [
@@ -7,35 +7,33 @@ const SPLATOON_TITLE_IDS = [
 	1407375153441536  // JPN
 ];
 
-export default {
-	props: {
-		user: {
-			type: Object as PropType<FriendInfoWiiU>,
-			required: false
-		},
-		theme: {
-			type: String,
-			required: false,
-			default: 'TurquoiseOrange alpha-blend zigzag'
-		},
-		disabled: {
-			type: Boolean,
-			required: false,
-			default: false
-		}
+const props = defineProps({
+  user: {
+		type: Object as PropType<FriendInfoWiiU>,
+		required: false
 	},
-	methods: {
-		isOnline(): boolean {
-			if (!this.user || !this.user.presence?.online)
-					return false;
-
-			const titleID = this.user.presence?.gameKey?.titleId;
-			if (titleID === undefined)
-					return false;
-
-			return SPLATOON_TITLE_IDS.includes(Number(titleID));
-		}
+	theme: {
+		type: String,
+		required: false,
+		default: 'TurquoiseOrange alpha-blend zigzag'
+	},
+	disabled: {
+		type: Boolean,
+		required: false,
+		default: false
 	}
+});
+const { user, theme, disabled } = props;
+
+function isOnline(): boolean {
+	if (!user || !user.presence?.online)
+			return false;
+
+	const titleID = user.presence?.gameKey?.titleId;
+	if (titleID === undefined)
+			return false;
+
+	return SPLATOON_TITLE_IDS.includes(Number(titleID));
 }
 </script>
 

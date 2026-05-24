@@ -1,28 +1,25 @@
 <script setup lang="ts">
-const { t } = useI18n()
-</script>
+const { t } = useI18n();
 
-<script lang="ts">
-export default {
-	props: {
-		index: {
-			type: Number,
-			required: true
-		},
-		size: {
-			type: String,
-			required: false,
-			default: 'large'
-		}
+const props = defineProps({
+  index: {
+		type: Number,
+		required: true
 	},
-	methods: {
-		headerDirection(index: number): String {
-			return index % 2 == 0 ? 'left' : 'right';
-		},
-		headerBlend(index: number): String {
-			return index % 2 == 0 ? 'alpha-blend' : 'bravo-blend';
-		},
+	size: {
+		type: String,
+		required: false,
+		default: 'large'
 	}
+});
+const { index, size } = props;
+
+function headerDirection(index: number): String {
+	return index % 2 == 0 ? 'left' : 'right';
+}
+
+function headerBlend(index: number): String {
+	return index % 2 == 0 ? 'alpha-blend' : 'bravo-blend';
 }
 </script>
 

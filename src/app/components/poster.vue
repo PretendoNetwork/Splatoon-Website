@@ -1,62 +1,61 @@
-<script lang="ts">
-/// <reference types="../../../../../.vscode/extensions/vue.volar-3.2.6/types/template-helpers.d.ts" />
-/// <reference types="../../../../../.vscode/extensions/vue.volar-3.2.6/types/props-fallback.d.ts" />
+<script setup lang="ts">
 import type { Phase, Stage } from '~~/types/settings';
 const RANKED = 1, SQUAD = 4;
-export default {
-	props: {
-		id: {
-			type: String,
-			required: true
-		},
-		gameMode: {
-			type: Number,
-			required: true
-		},
-		players: {
-			type: Array,
-			required: true
-		},
-		stages: {
-			type: Array as PropType<Phase[]>,
-			required: false
-		}
-	},
-	methods: {
-		isRanked(): boolean {
-			switch (this.gameMode) {
-				case RANKED:
-				case SQUAD:
-					return true;
-				default:
-					return false;
-			}
-		},
-		getMaps(): Array<string> {
-			if (!this.stages) return [];
-			let currentMaps: Array<Stage> | undefined = this.isRanked() ? this.stages[0]?.GachiStages : this.stages[0]?.RegularStages;
-			if (!currentMaps) return [];
-			let mapIDs = [];
-			for (let map of currentMaps) {
-				mapIDs.push(map.MapID.toString())
-			}
 
-			return mapIDs
-		},
-		getGameType(): string {
-			switch (this.gameMode) {
-				case 0:
-					return 'cPnt';
-				case 1:
-					return 'cVgl';
-				case 2:
-					return 'cVar';
-				case 3:
-					return 'cVlf';
-				default:
-					return 'cNone'
-			}
-		}
+const props = defineProps({
+  id: {
+		type: String,
+		required: true
+	},
+	gameMode: {
+		type: Number,
+		required: true
+	},
+	players: {
+		type: Array,
+		required: true
+	},
+	stages: {
+		type: Array as PropType<Phase[]>,
+		required: false
+	}
+});
+const { id, gameMode, players, stages } = props;
+
+function isRanked(): boolean {
+	switch (gameMode) {
+		case RANKED:
+		case SQUAD:
+			return true;
+		default:
+			return false;
+	}
+}
+
+function getMaps(): Array<string> {
+	if (!stages) return [];
+	let currentMaps: Array<Stage> | undefined = isRanked() ? stages[0]?.GachiStages : stages[0]?.RegularStages;
+	if (!currentMaps) return [];
+	let mapIDs = [];
+	for (let map of currentMaps) {
+		mapIDs.push(map.MapID.toString())
+	}
+
+	return mapIDs
+}
+
+function getGameType(): string {
+	switch (gameMode) {
+		case 0:
+			return 'cPnt';
+		case 1:
+			return 'cVgl';
+		case 2:
+			return 'cVar';
+		case 3:
+			return 'cVlf';
+		default:
+			return 'cNone'
 	}
 }
 </script>

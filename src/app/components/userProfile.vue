@@ -1,20 +1,16 @@
-<script lang="ts">
+<script setup lang="ts">
 import Settings from './settings.vue';
 import PlayingCard from './playingCard.vue'
-import Header from './header.vue';
-import Tag from './tag.vue';
 import type { FriendInfoWiiU } from '@pretendonetwork/grpc/friends/v2/friend_info';
 
-export default {
-	props: {
-		user: {
-			type: Object as PropType<FriendInfoWiiU>,
-			required: true
-		}
-	},
-	methods: {
+const props = defineProps({
+  user: {
+		type: Object as PropType<FriendInfoWiiU>,
+		required: true
 	}
-}
+});
+const { user } = props;
+
 </script>
 
 <template>

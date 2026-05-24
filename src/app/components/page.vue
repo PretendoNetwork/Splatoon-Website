@@ -1,25 +1,20 @@
 <script setup lang="ts">
+const { t } = useI18n();
 
-const { t } = useI18n()
-</script>
-
-<script lang="ts">
-export default {
-	props: {
-		contents: {
-			required: true
-		},
-		loading: {
-			required: true
-		},
-		contentsEmptyString: {
-			type: String,
-			required: true
-		}
+const props = defineProps({
+  contents: {
+		required: true
 	},
-	methods: {
+	loading: {
+		required: true
+	},
+	contentsEmptyString: {
+		type: String,
+		required: true
 	}
-}
+});
+const { contents, loading, contentsEmptyString } = props;
+
 </script>
 
 <template>

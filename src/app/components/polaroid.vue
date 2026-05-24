@@ -1,27 +1,22 @@
 <script setup lang="ts">
 const { t } = useI18n();
-</script>
 
-<script lang="ts">
-export default {
-	props: {
-		mapID: {
-			type: Number,
-			required: true
-		},
-		gameMode: {
-			type: String,
-			required: false
-		},
-		small: {
-			type: Boolean,
-			required: false,
-			default: false
-		}
+const props = defineProps({
+  mapID: {
+		type: Number,
+		required: true
 	},
-	methods: {
+	gameMode: {
+		type: String,
+		required: false
+	},
+	small: {
+		type: Boolean,
+		required: false,
+		default: false
 	}
-}
+});
+const { mapID, gameMode, small } = props;
 </script>
 
 <template>
