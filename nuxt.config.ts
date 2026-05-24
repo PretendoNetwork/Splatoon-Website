@@ -1,8 +1,7 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
 	compatibilityDate: '2025-07-15',
-	rootDir: 'src',
-	modules: ["@nuxt/fonts", "@nuxtjs/i18n", '@nuxt/eslint'],
+	modules: ['@nuxt/fonts', '@nuxtjs/i18n', '@nuxt/eslint'],
 	eslint: {
 		config: {
 			standalone: false
@@ -11,7 +10,7 @@ export default defineNuxtConfig({
 	app: {
 		head: {
 			script: [
-				{ tagPosition: 'bodyClose', src: '/js/index.js' },
+				{ tagPosition: 'bodyClose', src: '/js/index.js' }
 			],
 			link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }]
 		}
@@ -31,13 +30,13 @@ export default defineNuxtConfig({
 		locales: [
 			{ code: 'ja-JP', name: '日本語', file: 'ja_JP.json' },
 			{ code: 'en-US', name: 'English (United States)', file: 'en_US.json' },
-			{ code: 'es-ES', name: 'Español', file: 'es_ES.json' },
+			{ code: 'es-ES', name: 'Español', file: 'es_ES.json' }
 		]
 	},
 	// TODO: How do I actually validate this now that we're importing it here?
 	runtimeConfig: {
 		nitro: {
-			envPrefix: 'PN_SPLATOON_WEBSITE_',
+			envPrefix: 'PN_SPLATOON_WEBSITE_'
 		},
 		boss: {
 			aes_key: '',
@@ -66,6 +65,6 @@ export default defineNuxtConfig({
 		maxResponse: 12,
 		fileCacheDir: './',
 		loginDomain: '',
-		hostname: '',
+		hostname: ''
 	}
 });
