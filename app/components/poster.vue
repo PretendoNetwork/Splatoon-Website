@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import type { Phase, Stage } from '~~/types/settings';
-const RANKED = 1; const SQUAD = 4;
+const RANKED = 1;
+const SQUAD = 4;
 
 const props = defineProps({
 	id: {

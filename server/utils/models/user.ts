@@ -1,5 +1,5 @@
 import { Schema, model } from 'mongoose';
-import type { IUser, UserModel } from '~~/types/mongoose/user';
+import type { IUser, UserModel } from '~~/shared/types/mongoose/user';
 
 const UserSchema = new Schema<IUser, UserModel>({
 	pid: Number,

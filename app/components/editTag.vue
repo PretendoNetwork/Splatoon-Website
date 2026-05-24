@@ -1,7 +1,4 @@
 <script setup lang="ts">
-import Settings from './settings.vue';
-import Tag from './tag.vue';
-import type { Myself } from '~~/types/myself';
 const { t } = useI18n();
 
 const props = defineProps({
