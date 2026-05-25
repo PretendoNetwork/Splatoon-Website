@@ -2,10 +2,9 @@ import fs from 'node:fs';
 import tls from 'tls';
 import * as xml2js from 'xml2js';
 import { decryptWiiU } from '@pretendonetwork/boss-crypto';
-import pkg from '@pretendonetwork/nintendo-files';
+import * as nintendoFiles from '@pretendonetwork/nintendo-files';
 import type { H3Event } from 'h3';
 import type { BossFile } from '~~/shared/types/boss';
-const { BYAML } = pkg;
 const config = useRuntimeConfig();
 
 const { boss, maxResponse, fileCacheDir } = config;
@@ -124,7 +123,7 @@ async function fetchRotationFile(): Promise<globalThis.Settings | null> {
 	if (!contents) {
 		return null;
 	}
-	const byaml = BYAML.fromBuffer(contents);
+	const byaml = nintendoFiles.BYAML.fromBuffer(contents);
 	const settings = byaml.toJSON();
 
 	const json = getSensibleJSON(settings);
