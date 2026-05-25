@@ -18,7 +18,9 @@ export default defineEventHandler(async (event) => {
 		logger.error(e);
 	});
 
-	const settings = await getUserData(userData.pid);
+	const settings = await getUserData(userData.pid).catch((e) => {
+		logger.error(e);
+	});
 
 	if (!friendInfo?.user || !settings) {
 		return null;

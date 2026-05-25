@@ -6,7 +6,7 @@
 		"start": "node --enable-source-maps src/.output/server/index.mjs",
 		"build": "nuxt build",
 		"prepare": "nuxt prepare",
-		"dev": "nuxt dev",
+		"dev": "nuxt dev --host",
 		"lint": "eslint .",
 		"lint:fix": "eslint . --fix",
 		"typecheck": "nuxt typecheck"
@@ -18,7 +18,7 @@
 		"@nuxtjs/i18n": "^10.2.4",
 		"@pretendonetwork/boss-crypto": "^1.2.2",
 		"@pretendonetwork/grpc": "^2.5.3",
-		"@pretendonetwork/nintendo-files": "^1.1.0",
+		"@pretendonetwork/nintendo-files": "^2.0.1",
 		"colorette": "^2.0.20",
 		"colors": "^1.4.0",
 		"fs-extra": "^11.3.4",
