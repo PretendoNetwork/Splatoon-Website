@@ -28,7 +28,7 @@ RUN --mount=type=bind,source=package.json,target=package.json \
 
 COPY . .
 
-RUN npm run build
+RUN npm run prepare && npm run build
 
 
 # * Running the final application
@@ -44,6 +44,6 @@ EXPOSE 8080
 COPY package.json .
 
 COPY --from=dependencies ${app_dir}/node_modules ${app_dir}/node_modules
-COPY --from=build ${app_dir}/src/.output ${app_dir}/dist
+COPY --from=build ${app_dir}/.output ${app_dir}/dist
 
 CMD ["node", "--enable-source-maps", "dist/server/index.mjs"]
