@@ -2,8 +2,9 @@ import fs from 'node:fs';
 import tls from 'tls';
 import * as xml2js from 'xml2js';
 import { decryptWiiU } from '@pretendonetwork/boss-crypto';
-import * as pkg from '@pretendonetwork/nintendo-files';
+import pkg from '@pretendonetwork/nintendo-files';
 import type { H3Event } from 'h3';
+import type { BossFile } from '~~/shared/types/boss';
 const { BYAML } = pkg;
 const config = useRuntimeConfig();
 
@@ -12,7 +13,7 @@ const { aes_key, hmac_key, domain, app_id } = boss;
 
 tls.DEFAULT_MIN_VERSION = 'TLSv1.1';
 
-async function getFilesFromTask(taskId: string, filename: string | null = null) {
+async function getFilesFromTask(taskId: string, filename: string | null = null): Promise<[BossFile] | BossFile | null> {
 	const url = `${domain}/p01/tasksheet/1/${app_id}/${taskId}?c=US&l=en`;
 
 	const tasksheet = await fetch(url);
@@ -45,7 +46,7 @@ async function getFilesFromTask(taskId: string, filename: string | null = null) 
 	return task.Files.File;
 }
 
-async function getFileFromTask(taskId: string, filename: string) {
+async function getFileFromTask(taskId: string, filename: string): Promise<BossFile | null> {
 	const files = await getFilesFromTask(taskId, filename);
 
 	if (!files || Array.isArray(files)) {
@@ -59,7 +60,7 @@ async function getFileFromTask(taskId: string, filename: string) {
 	return files;
 }
 
-async function decryptBossFile(file: BossFile | null) {
+async function decryptBossFile(file: BossFile | null): Promise<Buffer<ArrayBufferLike> | null> {
 	if (!file) {
 		return null;
 	}
@@ -75,7 +76,7 @@ async function decryptBossFile(file: BossFile | null) {
 		fs.writeFileSync(`${fileCacheDir}/${file.Filename}`, content);
 		return content;
 	} catch (e) {
-		logger.error(e);
+		logger.error('Failed to decrypt ' + e);
 		return null;
 	}
 }
@@ -104,7 +105,7 @@ function getSensibleJSON(byaml: any): any {
 	return json;
 }
 
-async function fetchRotationFile() {
+async function fetchRotationFile(): Promise<globalThis.Settings | null> {
 	const cacheFile = `${fileCacheDir}/VSSetting.json`;
 	if (fs.existsSync(cacheFile)) {
 		const fileContents = fs.readFileSync(cacheFile, { encoding: 'utf-8' });
@@ -123,7 +124,6 @@ async function fetchRotationFile() {
 	if (!contents) {
 		return null;
 	}
-
 	const byaml = BYAML.fromBuffer(contents);
 	const settings = byaml.toJSON();
 

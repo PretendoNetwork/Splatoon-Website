@@ -1,6 +1,6 @@
 import type { H3Event } from 'h3';
 
-export default cachedEventHandler(async (event) => {
+export default cachedEventHandler(async (_) => {
 	logger.debug('Fetching matches');
 	const matches = await fetchMatches();
 	const pids = matches.map(m => m.participants).flat(1);

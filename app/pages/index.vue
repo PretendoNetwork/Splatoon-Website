@@ -2,9 +2,8 @@
 import '~/assets/css/index.css';
 
 const { t, locale } = useI18n();
-const nuxtApp = useNuxtApp();
 const config = useRuntimeConfig();
-const { loginDomain, hostname } = config;
+const { loginDomain, hostname } = config.public;
 
 useHead({
 	title: t('meta.title'),
@@ -90,23 +89,24 @@ async function updateTheme() {
         :loading="stagesPending"
         contents-empty-string="stages.none"
       >
-        <!-- Regular Battles -->
-        <template
-          v-for="(phase, index) in stages.Phases"
-          v-if="stages"
-          :key="phase"
-        >
-          <Header
-            :index="index"
+        <template v-if="stages">
+          <!-- Regular Battles -->
+          <template
+            v-for="(phase, index) in stages.Phases"
+            :key="phase"
           >
-            {{ parseDate(String(phase.Date)) }}
-          </Header>
-          <Polaroid
-            v-for="stage in phase.RegularStages"
-            :key="stage.MapID"
-            :map-id="stage.MapID"
-            :game-mode="phase.RegularRule"
-          />
+            <Header
+              :index="index"
+            >
+              {{ parseDate(String(phase.Date)) }}
+            </Header>
+            <Polaroid
+              v-for="stage in phase.RegularStages"
+              :key="stage.MapID"
+              :map-id="stage.MapID"
+              :game-mode="phase.RegularRule"
+            />
+          </template>
         </template>
       </Page>
       <Page
@@ -114,23 +114,24 @@ async function updateTheme() {
         :loading="stagesPending"
         contents-empty-string="stages.none"
       >
-        <!-- Ranked Battles -->
-        <template
-          v-for="(phase, index) in stages.Phases"
-          v-if="stages"
-          :key="phase"
-        >
-          <Header
-            :index="index + 1"
+        <template v-if="stages">
+          <!-- Ranked Battles -->
+          <template
+            v-for="(phase, index) in stages.Phases"
+            :key="phase"
           >
-            {{ parseDate(String(phase.Date)) }}
-          </Header>
-          <Polaroid
-            v-for="stage in phase.GachiStages"
-            :key="stage.MapID"
-            :map-id="stage.MapID"
-            :game-mode="phase.GachiRule"
-          />
+            <Header
+              :index="index + 1"
+            >
+              {{ parseDate(String(phase.Date)) }}
+            </Header>
+            <Polaroid
+              v-for="stage in phase.GachiStages"
+              :key="stage.MapID"
+              :map-id="stage.MapID"
+              :game-mode="phase.GachiRule"
+            />
+          </template>
         </template>
       </Page>
       <Page
@@ -139,13 +140,11 @@ async function updateTheme() {
         contents-empty-string="matches.none"
       >
         <!-- Matches -->
-        <template
-          v-for="match in matches"
-          v-if="matches"
-          :key="match"
-        >
+        <template v-if="matches">
           <Poster
+            v-for="match in matches"
             :id="match.id"
+            :key="match.id"
             :game-mode="Number(match.game_mode)"
             :players="match.participants"
             :stages="stages?.Phases"
@@ -214,12 +213,10 @@ async function updateTheme() {
           :theme="myself?.tagTheme"
           @click="showEditTag = true"
         />
-        <template
-          v-for="friend in friends"
-          v-if="friends"
-          :key="friend"
-        >
+        <template v-if="friends">
           <Tag
+            v-for="friend in friends"
+            :key="friend.nnaInfo?.principalBasicInfo?.pid"
             :user="friend"
             :theme="friend.tagTheme"
           />

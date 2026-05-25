@@ -11,6 +11,8 @@ export type Phase = {
 	RegularStages: [Stage];
 	Time: number;
 	Date: string;
+	Direction: string;
+	Blend: string;
 };
 
 export type Settings = {
@@ -34,7 +36,7 @@ export type Settings = {
 			MapID: number;
 		}
 	];
-	Phases: [Phase];
+	Phases: Phase[];
 	RuleFirstAppear: [
 		{
 			Date: string;
