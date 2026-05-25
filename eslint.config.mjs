@@ -2,6 +2,7 @@ import pluginVue from 'eslint-plugin-vue';
 import eslintConfig from '@pretendonetwork/eslint-config';
 import globals from 'globals';
 import typescriptEslint from 'typescript-eslint';
+import { globalIgnores } from 'eslint/config';
 // eslint-disable-next-line no-restricted-imports -- we need to import this for the withNuxt function
 import { withNuxt } from './.nuxt/eslint.config.mjs';
 
@@ -26,5 +27,7 @@ export default withNuxt([
 		rules: {
 			'import/no-unresolved': ['error', { ignore: ['\\.css$'] }] // can't resolve .css files
 		}
-	}
+	},
+	// Nuxt specific ignores
+	globalIgnores(['**/.output/**', '**/.nuxt/**'])
 ]);
