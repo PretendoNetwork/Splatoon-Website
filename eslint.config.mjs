@@ -9,7 +9,7 @@ export default withNuxt([
 	...eslintConfig,
 	...pluginVue.configs['flat/recommended'],
 	{
-		files: ['**/*.vue'],
+		files: ['**/*.vue', 'public/js/*.js'],
 		languageOptions: {
 			parserOptions: {
 				parser: typescriptEslint.parser

@@ -5,7 +5,9 @@ const { user = undefined, theme = 'TurquoiseOrange alpha-blend zigzag', disabled
 	theme?: string;
 	disabled?: boolean;
 }>();
-
+const emit = defineEmits<{
+	updateUser: [user: FriendInfoWiiU | undefined];
+}>();
 const SPLATOON_TITLE_IDS = [
 	1407375153522944, // USA
 	1407375153523200, // EUR
@@ -32,7 +34,7 @@ function isOnline(): boolean {
     :class="`${isOnline() ? 'online' : ''} ${theme}`"
     :data-pid="user?.nnaInfo?.principalBasicInfo?.pid"
     :disabled="disabled"
-    @click="$emit('update-user', user)"
+    @click="emit('updateUser', user)"
   >
     <h1 v-if="user">
       {{ user.nnaInfo?.principalBasicInfo?.mii?.name }}
