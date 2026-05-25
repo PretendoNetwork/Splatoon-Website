@@ -9,18 +9,16 @@ const { index, title, level = 999999, rank = '', icon } = defineProps<{
 const layer = ref(999999);
 
 function shuffleCards(event: any) {
-	if (import.meta.client) {
-		const cardList = event.target.closest('.playing-card');
-		if (!cardList) {
-			return;
-		}
-		const currentIndex = Number(cardList.style.zIndex);
-		cardList.classList.add('is-animated');
-		cardList.style.zIndex = `${currentIndex - 25}`;
-		cardList.addEventListener('animationend', (_: any) => {
-			cardList.classList.remove('is-animated');
-		});
+	const cardList = event.target.closest('.playing-card');
+	if (!cardList) {
+		return;
 	}
+	const currentIndex = Number(cardList.style.zIndex);
+	cardList.classList.add('is-animated');
+	cardList.style.zIndex = `${currentIndex - 25}`;
+	cardList.addEventListener('animationend', (_: any) => {
+		cardList.classList.remove('is-animated');
+	});
 }
 </script>
 

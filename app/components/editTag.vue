@@ -20,15 +20,13 @@ async function updateTheme(newTheme: string) {
 		return;
 	}
 	emit('updateTheme', newTheme);
-	if (import.meta.client) {
-		theme.value = newTheme;
-		await $fetch('/api/user', {
-			method: 'POST',
-			body: {
-				class_list: newTheme
-			}
-		});
-	}
+	theme.value = newTheme;
+	await $fetch('/api/user', {
+		method: 'POST',
+		body: {
+			class_list: newTheme
+		}
+	});
 }
 </script>
 
