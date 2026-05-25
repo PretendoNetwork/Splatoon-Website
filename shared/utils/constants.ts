@@ -1,4 +1,4 @@
-const themes = [
+export const themes = [
 	'PinkGreen',
 	'PinkBlue',
 	'PinkOrange',
@@ -16,7 +16,3 @@ const themes = [
 	'GreenOrange',
 	'DarkblueYellow'
 ];
-
-export {
-	themes
-};
