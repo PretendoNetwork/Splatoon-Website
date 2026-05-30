@@ -11,13 +11,20 @@ export default defineEventHandler(async (event) => {
 		const userData = await fetchPNID(authToken);
 
 		if (!userData) {
+			logger.error('Failed to fetch user data from account');
 			return null;
 		}
 
 		const friendInfo = await fetchFriendInfo(userData.pid);
 		const settings = await getUserData(userData.pid);
 
-		if (!friendInfo?.user || !settings) {
+		if (!friendInfo?.user) {
+			logger.error('Failed to fetch user info from friends');
+			return null;
+		}
+
+		if (!settings) {
+			logger.error('Failed to get user settings');
 			return null;
 		}
 

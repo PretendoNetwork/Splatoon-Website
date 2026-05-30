@@ -7,6 +7,7 @@ export default defineEventHandler(async (event) => {
 	const { class_list } = await readBody(event);
 
 	if (!authToken || !class_list) {
+		logger.warn('Missing auth token or class list');
 		return null;
 	}
 	const userData = await fetchPNID(authToken).catch((e) => {
