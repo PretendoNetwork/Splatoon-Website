@@ -7,29 +7,36 @@ export default defineEventHandler(async (event) => {
 	if (!authToken) {
 		return null;
 	}
-	const userData = await fetchPNID(authToken).catch((e) => {
-		logger.error(e);
-	});
+	try {
+		const userData = await fetchPNID(authToken);
 
-	if (!userData) {
+		if (!userData) {
+			logger.error('Failed to fetch user data from account');
+			return null;
+		}
+
+		const friendInfo = await fetchFriendInfo(userData.pid);
+		const settings = await getUserData(userData.pid);
+
+		if (!friendInfo?.user) {
+			logger.error('Failed to fetch user info from friends');
+			return null;
+		}
+
+		if (!settings) {
+			logger.error('Failed to get user settings');
+			return null;
+		}
+
+		const myself: Myself = {
+			tagTheme: settings?.splash_tag_classes,
+			userInfo: friendInfo.user
+		};
+
+		return myself;
+	} catch (e) {
+		logger.error('Failed to fetch user data');
+		logger.error(e);
 		return null;
 	}
-	const friendInfo = await fetchFriendInfo(userData.pid).catch((e) => {
-		logger.error(e);
-	});
-
-	const settings = await getUserData(userData.pid).catch((e) => {
-		logger.error(e);
-	});
-
-	if (!friendInfo?.user || !settings) {
-		return null;
-	}
-
-	const myself: Myself = {
-		tagTheme: settings?.splash_tag_classes,
-		userInfo: friendInfo.user
-	};
-
-	return myself;
 });
