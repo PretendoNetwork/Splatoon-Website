@@ -65,8 +65,12 @@ async function updateTheme() {
         </svg>
       </button>
       <div class="controls">
-        <button id="scrollLeft">⬅</button>
-        <button id="scrollRight">➡</button>
+        <button id="scrollLeft">
+          ⬅
+        </button>
+        <button id="scrollRight">
+          ➡
+        </button>
       </div>
       <UserSettings
         v-show="showSettings"
