@@ -36,6 +36,7 @@ const { contents, loading, contentsEmptyString } = defineProps<{
     overflow-y: scroll;
     -ms-overflow-style: none;  /* Internet Explorer 10+ */
     scrollbar-width: none;  /* Firefox, Safari 18.2+, Chromium 121+ */
+		padding-bottom: 4em;
 }
 
 .page::-webkit-scrollbar {

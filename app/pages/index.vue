@@ -64,6 +64,10 @@ async function updateTheme() {
           />
         </svg>
       </button>
+      <div class="controls">
+        <button id="scrollLeft">⬅</button>
+        <button id="scrollRight">➡</button>
+      </div>
       <UserSettings
         v-show="showSettings"
         @close="showSettings = false"
@@ -216,3 +220,26 @@ async function updateTheme() {
     </div>
   </div>
 </template>
+<script lang="ts">
+if (import.meta.client) {
+	const frame: HTMLDivElement = document.getElementById('content') as HTMLDivElement;
+	const scrollLeft: HTMLButtonElement = document.getElementById('scrollLeft') as HTMLButtonElement;
+	const scrollRight: HTMLButtonElement = document.getElementById('scrollRight') as HTMLButtonElement;
+
+	scrollLeft.addEventListener('click', (_: Event) => {
+		frame.scrollBy({
+			left: frame.clientWidth * -1,
+			top: 0,
+			behavior: 'smooth'
+		});
+	});
+
+	scrollRight.addEventListener('click', (_: Event) => {
+		frame.scrollBy({
+			left: frame.clientWidth,
+			top: 0,
+			behavior: 'smooth'
+		});
+	});
+}
+</script>
