@@ -1,4 +1,5 @@
 import { getCookie } from 'h3';
+import type { IUser } from '~~/shared/types/mongoose/user';
 
 export default defineEventHandler(async (event) => {
 	logger.debug('Getting myself');
@@ -16,7 +17,7 @@ export default defineEventHandler(async (event) => {
 		}
 
 		const friendInfo = await fetchFriendInfo(userData.pid);
-		const settings = await getUserData(userData.pid);
+		let settings = await getUserData(userData.pid);
 
 		if (!friendInfo?.user) {
 			logger.error('Failed to fetch user info from friends');
@@ -24,8 +25,12 @@ export default defineEventHandler(async (event) => {
 		}
 
 		if (!settings) {
-			logger.error('Failed to get user settings');
-			return null;
+			// If we are fetching this for the first time, create new user data
+			const document: IUser = {
+				pid: userData.pid,
+				splash_tag_classes: 'bravo-blend PinkBlue stripes'
+			};
+			settings = await User.create(document);
 		}
 
 		const myself: Myself = {
