@@ -65,7 +65,10 @@ async function updateTheme() {
         </svg>
       </button>
       <div class="controls">
-        <button id="scrollLeft">
+        <button
+          id="scrollLeft"
+          disabled
+        >
           ⬅
         </button>
         <button id="scrollRight">
@@ -209,6 +212,7 @@ async function updateTheme() {
         <Tag
           v-if="myself"
           :user="myself?.userInfo"
+          :pnid="myself?.pnid"
           :theme="myself?.tagTheme"
           @click="showEditTag = true"
         />
@@ -217,6 +221,7 @@ async function updateTheme() {
             v-for="friend in friends"
             :key="friend.nnaInfo?.principalBasicInfo?.pid"
             :user="friend"
+            :pnid="friend?.pnid"
             :theme="friend.tagTheme"
           />
         </template>
@@ -229,6 +234,7 @@ if (import.meta.client) {
 	const frame: HTMLDivElement = document.getElementById('content') as HTMLDivElement;
 	const scrollLeft: HTMLButtonElement = document.getElementById('scrollLeft') as HTMLButtonElement;
 	const scrollRight: HTMLButtonElement = document.getElementById('scrollRight') as HTMLButtonElement;
+	const pages = document.querySelectorAll('.page');
 
 	scrollLeft.addEventListener('click', (_: Event) => {
 		frame.scrollBy({
@@ -244,6 +250,17 @@ if (import.meta.client) {
 			top: 0,
 			behavior: 'smooth'
 		});
+	});
+
+	frame.addEventListener('scroll', (event) => {
+		const target = event.target as HTMLElement;
+		const maxWidth = frame.clientWidth * (pages.length - 1);
+		if (!target) {
+			return;
+		}
+
+		scrollLeft.disabled = target.scrollLeft < frame.clientWidth;
+		scrollRight.disabled = target.scrollLeft >= maxWidth;
 	});
 }
 </script>

@@ -44,7 +44,8 @@
 	"loading": "Loading...",
 	"sign_in": "Sign In",
 	"matches": {
-		"none": "No Matches"
+		"none": "No Matches",
+		"gathering": "Gathering"
 	},
 	"friends": {
 		"none": "No Friends"

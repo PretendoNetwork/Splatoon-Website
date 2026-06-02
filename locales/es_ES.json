@@ -43,7 +43,8 @@
 	"loading": "(es_ES) Loading...",
 	"sign_in": "(es_ES) Sign In",
 	"matches": {
-		"none": "(es_ES) No Matches"
+		"none": "(es_ES) No Matches",
+		"gathering": "(es_ES) Gathering"
 	},
 	"friends": {
 		"none": "(es_ES) No Friends"
