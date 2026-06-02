@@ -43,7 +43,8 @@
 	"loading": "(ja_JP) Loading...",
 	"sign_in": "(ja_JP) Sign In",
 	"matches": {
-		"none": "(ja_JP) No Matches"
+		"none": "(ja_JP) No Matches",
+		"gathering": "(ja_JP) Gathering"
 	},
 	"friends": {
 		"none": "(ja_JP) No Friends"

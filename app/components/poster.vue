@@ -55,7 +55,7 @@ function getGameType(): string {
   <div class="poster">
     <div class="inner">
       <h3 class="">
-        Gathering #{{ id }}
+        {{ $t('matches.gathering') }} #{{ id }}
       </h3>
       <div class="img-wrapper scotch-tape corners">
         <img
