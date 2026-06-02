@@ -110,6 +110,7 @@ function isOnline(): boolean {
     left: 1ch;
     bottom: 0.1ch;
     margin: 0;
+		font-size: 10px;
 }
 /* Background Style Text Overrides */
 .zigzag:hover, .zigzag.animate {
