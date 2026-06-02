@@ -31,14 +31,20 @@ export default defineEventHandler(async (event) => {
 		return null;
 	}
 
+	const friendsPNIDs = await fetchPNIDs(friends.map(friend => friend.nnaInfo?.principalBasicInfo?.pid ?? 0));
+
 	const friendPIDs = friends.map(friend => friend.nnaInfo?.principalBasicInfo?.pid ?? 0);
 
 	const friendSettings = await getUsersData(friendPIDs);
-	return friends.map(friend => (
-		{
+	return friends.map((friend) => {
+		const pid = friend.nnaInfo?.principalBasicInfo?.pid ?? -1;
+		const pnid = friendsPNIDs[pid];
+		const result = {
 			...friend,
+			pnid: pnid,
 			tagTheme: friendSettings.find(settings =>
 				settings.pid == friend.nnaInfo?.principalBasicInfo?.pid)?.splash_tag_classes ?? 'bravo-blend PinkBlue stripes'
-		}
-	));
+		};
+		return result;
+	});
 });

@@ -212,6 +212,7 @@ async function updateTheme() {
         <Tag
           v-if="myself"
           :user="myself?.userInfo"
+          :pnid="myself?.pnid"
           :theme="myself?.tagTheme"
           @click="showEditTag = true"
         />
@@ -220,6 +221,7 @@ async function updateTheme() {
             v-for="friend in friends"
             :key="friend.nnaInfo?.principalBasicInfo?.pid"
             :user="friend"
+            :pnid="friend?.pnid"
             :theme="friend.tagTheme"
           />
         </template>

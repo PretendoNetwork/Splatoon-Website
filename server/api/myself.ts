@@ -35,7 +35,8 @@ export default defineEventHandler(async (event) => {
 
 		const myself: Myself = {
 			tagTheme: settings?.splash_tag_classes,
-			userInfo: friendInfo.user
+			userInfo: friendInfo.user,
+			pnid: userData
 		};
 
 		return myself;

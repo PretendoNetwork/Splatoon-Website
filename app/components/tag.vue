@@ -1,7 +1,9 @@
 <script setup lang="ts">
 import type { FriendInfoWiiU } from '@pretendonetwork/grpc/friends/v2/friend_info';
-const { user = undefined, theme = 'TurquoiseOrange alpha-blend zigzag', disabled = false } = defineProps<{
+import type { GetUserDataResponse } from '@pretendonetwork/grpc/api/get_user_data_rpc';
+const { user = undefined, pnid = undefined, theme = 'TurquoiseOrange alpha-blend zigzag', disabled = false } = defineProps<{
 	user?: FriendInfoWiiU;
+	pnid?: GetUserDataResponse;
 	theme?: string;
 	disabled?: boolean;
 }>();
@@ -13,6 +15,8 @@ const SPLATOON_TITLE_IDS = [
 	1407375153523200, // EUR
 	1407375153441536 // JPN
 ];
+
+const miiName = pnid ? pnid.mii?.name : user ? user.nnaInfo?.principalBasicInfo?.mii?.name : 'Unknown';
 
 function isOnline(): boolean {
 	if (!user || !user.presence?.online) {
@@ -37,7 +41,7 @@ function isOnline(): boolean {
     @click="emit('updateUser', user)"
   >
     <h1 v-if="user">
-      {{ user.nnaInfo?.principalBasicInfo?.mii?.name }}
+      {{ miiName }}
     </h1>
     <h3 v-if="user">
       {{ user.nnaInfo?.principalBasicInfo?.nnid }}
@@ -50,80 +54,80 @@ function isOnline(): boolean {
 @keyframes zig-slide {
   0% {
     background-position-y: 0px;
-	}
+  }
 
   100% {
     background-position-y: 350px;
-	}
+  }
 }
 
 @keyframes arrow-slide {
   0% {
     background-position-x: 92px;
-		background-position-y: 92px;
-	}
+    background-position-y: 92px;
+  }
 
   100% {
     background-position-x: -350px;
-		background-position-y: 350px;
-	}
+    background-position-y: 350px;
+  }
 }
 
 .tag {
-	font-family: "Splatoon1";
-	position: relative;
-	background-color: white;
-	color: white;
-	width: 325px;
-	height: 100px;
-	margin: 1ch;
-	border: none;
-	cursor: pointer;
-	user-select: none;
-	transition: filter 0.25s, background-position-y 10s;
-	filter: brightness(50%);
-	flex-shrink: none;
-	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
+  font-family: "Splatoon1";
+  position: relative;
+  background-color: white;
+  color: white;
+  width: 325px;
+  height: 100px;
+  margin: 1ch;
+  border: none;
+  cursor: pointer;
+  user-select: none;
+  transition: filter 0.25s, background-position-y 10s;
+  filter: brightness(50%);
+  flex-shrink: none;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
 }
 .online, .tag:hover {
-	filter: brightness(100%);
+  filter: brightness(100%);
 }
 .tag h1 {
     position: relative;
-		font-size: 30px;
-		margin: 0;
-		text-align: center;
-		vertical-align: middle;
+    font-size: 30px;
+    margin: 0;
+    text-align: center;
+    vertical-align: middle;
 }
 .online h1::after {
-	position: relative;
-	display: inline-block;
-	content: "";
-	width: 0.5ch;
-	height: 0.5ch;
-	background-color: lime;
-	border-radius: 100%;
-	margin-bottom: 0.75ch;
+  position: relative;
+  display: inline-block;
+  content: "";
+  width: 0.5ch;
+  height: 0.5ch;
+  background-color: lime;
+  border-radius: 100%;
+  margin-bottom: 0.75ch;
 }
 .tag h3 {
     position: absolute;
     left: 1ch;
     bottom: 0.1ch;
     margin: 0;
-		font-size: 10px;
+    font-size: 10px;
 }
 /* Background Style Text Overrides */
 .zigzag:hover, .zigzag.animate {
-	animation: zig-slide 20s linear infinite;
+  animation: zig-slide 20s linear infinite;
 }
 
 .arrows:hover, .arrows.animate {
-	animation: arrow-slide 20s linear infinite;
+  animation: arrow-slide 20s linear infinite;
 }
 
 .badges {
-	position: absolute;
-	right: 1ch;
-	bottom: 0;
+  position: absolute;
+  right: 1ch;
+  bottom: 0;
 }
 </style>
