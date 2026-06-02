@@ -88,6 +88,13 @@ div#content {
     cursor: not-allowed;
 }
 
+.PinkGreen .controls button,
+.OrangeBlue .controls button,
+.LightBlueDarkBlue .controls button,
+.YellowLilac .controls button {
+	color: black;
+}
+
 @media (max-width: 700px) {
   .controls {
     display: none;
