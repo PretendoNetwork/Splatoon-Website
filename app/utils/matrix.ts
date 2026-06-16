@@ -20,11 +20,11 @@ class Matrix {
 	}
 
 	getTopOffset(): number {
-		if (navigator.userAgent.indexOf('Chrome') != -1) {
+		if (navigator.userAgent.includes('Chrome')) {
 			return 0;
-		} else if (navigator.userAgent.indexOf('Safari') != -1) {
-			return navigator.userAgent.indexOf('Macintosh') != -1 ? -2 : -4;
-		} else if (navigator.userAgent.indexOf('Firefox') != -1) {
+		} else if (navigator.userAgent.includes('Safari')) {
+			return navigator.userAgent.includes('Macintosh') ? -2 : -4;
+		} else if (navigator.userAgent.includes('Firefox')) {
 			return -1;
 		} else {
 			return 0;
