@@ -103,7 +103,7 @@ class Matrix {
 			return [];
 		}
 		const fontSize = 12 * multiplier;
-		const ctx = this.drawCanvas.getContext('2d');
+		const ctx = this.drawCanvas.getContext('2d', { willReadFrequently: true });
 		const pageWidth = document.getElementById('content')?.offsetWidth;
 		const font = `${fontSize}px "PixelMplus12-Regular"`;
 
