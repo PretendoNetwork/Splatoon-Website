@@ -2,7 +2,7 @@ class Matrix {
 	timelineCanvas = document.getElementById('ledSign') as HTMLCanvasElement;
 	drawCanvas = document.createElement('canvas');
 	textList: string[] = [];
-	SIGN_ROWS = 15;
+	SIGN_ROWS = 13;
 	GLYPH_ROWS = 10;
 	FLICKER_COUNT = 3;
 	offset_x = 0;
@@ -17,6 +17,18 @@ class Matrix {
 		setInterval(this.triggerFlickers.bind(this), 3000);
 		window.addEventListener('resize', debounce(this.render.bind(this), 250));
 		this.setText([' ']); // Force the browser to actual load the font
+	}
+
+	getTopOffset(): number {
+		if (navigator.userAgent.includes('Chrome')) {
+			return 0;
+		} else if (navigator.userAgent.includes('Safari')) {
+			return navigator.userAgent.includes('Macintosh') ? -2 : -4;
+		} else if (navigator.userAgent.includes('Firefox')) {
+			return -1;
+		} else {
+			return 0;
+		}
 	}
 
 	setText(newTextList: string[]): void {
@@ -86,11 +98,12 @@ class Matrix {
 	}
 
 	generateBitMap(): number[][] {
+		const multiplier = 2;
 		if (this.textList.length < 1) {
 			return [];
 		}
-		const fontSize = 12;
-		const ctx = this.drawCanvas.getContext('2d');
+		const fontSize = 12 * multiplier;
+		const ctx = this.drawCanvas.getContext('2d', { willReadFrequently: true });
 		const pageWidth = document.getElementById('content')?.offsetWidth;
 		const font = `${fontSize}px "PixelMplus12-Regular"`;
 
@@ -101,7 +114,7 @@ class Matrix {
 		ctx.font = font;
 		ctx.textBaseline = 'top';
 
-		this.drawCanvas.width = pageWidth * this.textList.length;
+		this.drawCanvas.width = (pageWidth * this.textList.length) * multiplier;
 		this.drawCanvas.height = fontSize;
 
 		// Re-set after resize
@@ -109,9 +122,10 @@ class Matrix {
 		ctx.textBaseline = 'top';
 		ctx.fillStyle = '#000000';
 
-		let currentOffset = this.offset_x + 1;
+		let currentOffset = this.offset_x;
+		currentOffset += (currentOffset & 1) ^ 1; // get the next odd number cause firefox hates me
 		for (const text of this.textList) {
-			ctx.fillText(text, currentOffset, -1);
+			ctx.fillText(text, currentOffset, this.getTopOffset());
 			currentOffset += pageWidth;
 		}
 
@@ -119,11 +133,17 @@ class Matrix {
 		const pixels = imageData.data;
 		const bitmap = [];
 
-		for (let y = 0; y < this.drawCanvas.height; y++) {
+		// We're looping over the pixels in the canvas, in groups of {multiplier} to determine if a pixel needs to be lit
+		// Yes it's overkill, blame firefox for breaking their canvas support on android
+		for (let y = 0; y < this.drawCanvas.height; y += multiplier) {
 			const row = [];
-			for (let x = 0; x < this.drawCanvas.width; x++) {
-				const index = (y * this.drawCanvas.width + x) * 4;
-				const pixel = pixels[index + 3] ?? 0;
+			for (let x = 0; x < this.drawCanvas.width; x += multiplier) {
+				const startIndex = ((y * this.drawCanvas.width + x) * 4) + 3;
+				const endIndex = startIndex + multiplier;
+				let pixel = 0;
+				for (let j = startIndex; j <= endIndex; j++) {
+					pixel += pixels[j] ?? 0;
+				}
 				row.push(pixel > 128 ? 1 : 0);
 			}
 			bitmap.push(row);
@@ -151,14 +171,13 @@ class Matrix {
 		ctx.fillStyle = '#000';
 		ctx.fillRect(0, 0, this.timelineCanvas.width, this.timelineCanvas.height);
 
-		const startColumn = 1;
 		const startRow = Math.floor((this.SIGN_ROWS - this.GLYPH_ROWS) / 2);
 		const columnCount = Math.ceil(width / cellSize);
 
 		for (let row = 0; row < this.SIGN_ROWS; row++) {
 			for (let column = 0; column < columnCount; column++) {
 				const gridRow = row - startRow;
-				const gridColumn = column - startColumn;
+				const gridColumn = column;
 				const lit = this.bitmap[gridRow]?.[gridColumn] === 1;
 				const isFlickering = lit && this.flickering.has(`${gridRow},${gridColumn}`);
 
