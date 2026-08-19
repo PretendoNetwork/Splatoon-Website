@@ -17,7 +17,7 @@ useHead({
 
 await preloadComponents('Timeline');
 const { data: stages, pending: stagesPending } = await useFetch<Settings>('/api/stages', { server: true });
-const { data: matches, pending: matchesPending } = await useFetch<Match[]>('/api/matches', { server: true });
+const { data: matches, pending: matchesPending, refresh: refreshMatches } = await useFetch<Match[]>('/api/matches', { server: true });
 const { data: friends, pending: friendsPending } = await useFetch<Friend[] | null>('/api/friends');
 const { data: myself, refresh: refreshMyself } = await useFetch<Myself>('/api/myself');
 
@@ -37,6 +37,10 @@ async function updateTheme() {
 	}
 
 	refreshMyself();
+}
+
+if (import.meta.browser) {
+	setInterval(() => refreshMatches(), 30 * 1000);
 }
 </script>
 
