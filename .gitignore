@@ -9,3 +9,4 @@ node_modules
 .vscode
 *.byaml
 VSSetting.json
+.DS_Store
