@@ -23,7 +23,7 @@ export default defineNuxtConfig({
 			strictMessage: false
 		},
 		detectBrowserLanguage: {
-			useCookie: false,
+			useCookie: true,
 			redirectOn: 'root'
 		},
 		restructureDir: '',
@@ -54,6 +54,11 @@ export default defineNuxtConfig({
 				port: ''
 			},
 			friends: {
+				api_key: '',
+				host: '',
+				port: ''
+			},
+			juxtaposition: {
 				api_key: '',
 				host: '',
 				port: ''
