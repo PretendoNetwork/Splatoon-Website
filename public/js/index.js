@@ -29,6 +29,7 @@ if (storageAvailable('localStorage')) {
 		storedTheme = 'OrangeBlue';
 		localStorage.setItem('theme', storedTheme);
 	}
-
-	frame.className = storedTheme;
+	if (!frame.className.includes('Festival')) {
+		frame.className = storedTheme;
+	}
 }

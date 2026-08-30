@@ -57,6 +57,12 @@
 		"ink": "Ink",
 		"zigzag": "Zig Zag"
 	},
+	"festival": {
+		"announced": "The Splatfest {title} begins on {date} at {time}!",
+		"ended": "{title} has concluded. Check back soon to see the results!",
+		"live": "{title} is happening now! Log in to Splatoon to pick a team and start battling!",
+		"results": "{title} has concluded! Log in to Splatoon to see the results!"
+	},
 	"weapons": {
 		"100": "Sploosh-o-matic",
 		"101": "Neo Sploosh-o-matic",

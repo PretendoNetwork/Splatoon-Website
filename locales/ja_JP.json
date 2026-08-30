@@ -56,6 +56,12 @@
 		"ink": "(ja_JP) Ink",
 		"zigzag": "(ja_JP) Zig Zag"
 	},
+	"festival": {
+		"announced": "(ja_JP) The Splatfest {team1} vs {team2} begins on {date} at {time}!",
+		"ended": "(ja_JP) {title} has concluded. Check back soon to see the results!",
+		"live": "(ja_JP) {team1} vs {team2} is happening now! Log in to Splatoon to pick a team and start battling!",
+		"results": "(ja_JP) {team1} vs {team2} has concluded! Log in to Splatoon to see the results!"
+	},
 	"weapons": {
 		"100": "(ja_JP) Sploosh-o-matic",
 		"101": "(ja_JP) Neo Sploosh-o-matic",

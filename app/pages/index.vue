@@ -5,19 +5,10 @@ const { t, locale } = useI18n();
 const config = useRuntimeConfig();
 const { loginDomain, hostname } = config.public;
 
-useHead({
-	title: t('meta.title'),
-	meta: [
-		{ name: 'description', content: t('meta.description') }
-	],
-	bodyAttrs: {
-		class: 'ink Neutral'
-	}
-});
-
 await preloadComponents('Timeline');
 const { data: stages, pending: stagesPending } = await useFetch<Settings>('/api/stages', { server: true });
 const { data: matches, pending: matchesPending, refresh: refreshMatches } = await useFetch<Match[]>('/api/matches', { server: true });
+const { data: festival } = await useFetch('/api/festival', { server: true });
 const { data: friends, pending: friendsPending } = await useFetch<Friend[] | null>('/api/friends');
 const { data: myself, refresh: refreshMyself } = await useFetch<Myself>('/api/myself');
 
@@ -26,9 +17,33 @@ const pages = [t('titles.regular'), t('titles.ranked'), t('titles.gatherings'), 
 const showSettings = ref(false);
 const showEditTag = ref(false);
 
-function parseDate(timestamp: string | object) {
+const festivalColor1 = ref(festival.value?.Teams.at(0)?.Color);
+const festivalColor2 = ref(festival.value?.Teams.at(1)?.Color);
+const festivalColor3 = ref(festival.value?.Teams.at(2)?.Color);
+
+const festivalTitles = festival.value?.Title;
+const festivalTitle = festivalTitles ? festivalTitles[locale.value as keyof typeof festivalTitles] : 'Unknown';
+
+useHead({
+	title: t('meta.title'),
+	meta: [
+		{ name: 'description', content: t('meta.description') }
+	],
+	bodyAttrs: {
+		class: 'ink Neutral',
+		// TODO: I don't understand why, but nuxt cuts out the first property from :root when applying it this way. Need to investigate this later ;~;
+		style: `:root { color:inherit; --festival-color-1: ${festivalColor1.value}; --festival-color-2: ${festivalColor2.value}; --festival-color-3: ${festivalColor3.value};}`
+	}
+});
+
+function parseTime(timestamp: string | object) {
 	const date = new Date(timestamp as string);
 	return date.toLocaleString(locale.value, { hour: 'numeric' });
+}
+
+function parseDate(timestamp: string | object) {
+	const date = new Date(timestamp as string);
+	return date.toLocaleString(locale.value, { dateStyle: 'short' });
 }
 
 async function updateTheme() {
@@ -45,11 +60,13 @@ if (import.meta.browser) {
 </script>
 
 <template>
-  <div class="mainFrame">
+  <div
+    class="mainFrame"
+    :class="`${festival?.isActive? 'notification' : ''} ${festival?.isStarted && !festival.isEnded? 'festival' : ''}`"
+  >
     <Timeline :pages="pages" />
     <div
       id="content"
-      class=""
     >
       <button
         v-show="!showSettings && !showEditTag"
@@ -90,6 +107,19 @@ if (import.meta.browser) {
         @close="showEditTag = false"
         @update-theme="updateTheme"
       />
+      <Festival v-if="festival?.isStarted && !festival.isEnded" />
+      <div
+        v-if="festival?.isActive"
+        class="marquee"
+      >
+        <p>
+          {{ t(festival.translationID, {
+            title: festivalTitle,
+            date: parseDate(festival.Time.Announce),
+            time: parseTime(festival.Time.Announce)
+          }) }}
+        </p>
+      </div>
       <Page
         :contents="stages"
         :loading="stagesPending"
@@ -99,12 +129,12 @@ if (import.meta.browser) {
           <!-- Regular Battles -->
           <template
             v-for="(phase, index) in stages.Phases"
-            :key="phase"
+            :key="phase as unknown as PropertyKey"
           >
             <Header
               :index="index"
             >
-              {{ parseDate(String(phase.Date)) }}
+              {{ parseTime(String(phase.Date)) }}
             </Header>
             <Polaroid
               v-for="stage in phase.RegularStages"
@@ -124,12 +154,12 @@ if (import.meta.browser) {
           <!-- Ranked Battles -->
           <template
             v-for="(phase, index) in stages.Phases"
-            :key="phase"
+            :key="phase as unknown as PropertyKey"
           >
             <Header
               :index="index + 1"
             >
-              {{ parseDate(String(phase.Date)) }}
+              {{ parseTime(String(phase.Date)) }}
             </Header>
             <Polaroid
               v-for="stage in phase.GachiStages"
