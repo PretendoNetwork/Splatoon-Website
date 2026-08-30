@@ -8,5 +8,7 @@ node_modules
 .env
 .vscode
 *.byaml
+*.bfres
 VSSetting.json
+Festival.json
 .DS_Store
