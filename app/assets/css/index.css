@@ -471,6 +471,42 @@ button.settings {
     height: 100%;
 }
 
+.marquee {
+    background-color: #00000080;
+    color: #fff;
+    overflow: hidden;
+    width: 100%;
+    white-space: nowrap;
+    position: absolute;
+    left: 0;
+    height: 2em;
+    margin-top: 0.5em;
+    z-index: 100;
+}
+
+.marquee p {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    line-height: 2em;
+    text-align: center;
+    /* Start off the right edge */
+    transform: translateX(100%);
+    /* Animate to the left */
+    animation: scroll-left 20s linear infinite;
+}
+
+@keyframes scroll-left {
+    0% {
+        transform: translateX(100%);
+    }
+
+    100% {
+        transform: translateX(-100%);
+    }
+}
+
 /* Pattern Blends */
 
 .alpha-blend {
@@ -702,4 +738,14 @@ button.settings {
   --c1: #673db6;
   --c2: #be0e00;
   --c3: #59c9a5;
+}
+
+.festival #content {
+  --c1: var(--festival-color-1);
+  --c2: var(--festival-color-2);
+  --c3: var(--festival-color-3);
+}
+
+.notification .page {
+  padding-top: 3em;
 }

@@ -49,5 +49,6 @@ if (import.meta.client) {
 	height: 60px;
 	box-sizing: border-box;
 	user-select: none;
+	z-index: 999;
 }
 </style>
