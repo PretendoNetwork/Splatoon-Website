@@ -2,6 +2,9 @@
 	"name": "splatoon-website",
 	"private": true,
 	"type": "module",
+	"engines": {
+		"node": "^22.23.4"
+	},
 	"scripts": {
 		"start": "node --enable-source-maps src/.output/server/index.mjs",
 		"build": "nuxt build",
